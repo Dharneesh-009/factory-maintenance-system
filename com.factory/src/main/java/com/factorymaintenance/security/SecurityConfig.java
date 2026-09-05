@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public SecurityConfig(
@@ -28,18 +27,18 @@ public class SecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
-// ==========================================
-// PASSWORD ENCODER
-// ==========================================
+    // ==========================================
+    // PASSWORD ENCODER
+    // ==========================================
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-// ==========================================
-// SECURITY CONFIGURATION
-// ==========================================
+    // ==========================================
+    // SECURITY CONFIGURATION
+    // ==========================================
 
     @Bean
     public SecurityFilterChain securityFilterChain(
@@ -63,10 +62,9 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // ----------------------------------
+                        // ==================================
                         // AUTHENTICATION
-                        // Login + Register are public
-                        // ----------------------------------
+                        // ==================================
 
                         .requestMatchers("/api/auth/**")
                         .permitAll()
@@ -76,28 +74,24 @@ public class SecurityConfig {
                         // MACHINE MANAGEMENT
                         // ==================================
 
-                        // Create machine - ADMIN only
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/machines"
                         )
                         .hasRole("ADMIN")
 
-                        // Update machine - ADMIN only
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/machines/**"
                         )
                         .hasRole("ADMIN")
 
-                        // Delete machine - ADMIN only
                         .requestMatchers(
                                 HttpMethod.DELETE,
                                 "/api/machines/**"
                         )
                         .hasRole("ADMIN")
 
-                        // View machines - ADMIN + TECHNICIAN
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/machines/**"
@@ -112,21 +106,18 @@ public class SecurityConfig {
                         // MAINTENANCE MANAGEMENT
                         // ==================================
 
-                        // Create maintenance - ADMIN only
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/maintenance"
                         )
                         .hasRole("ADMIN")
 
-                        // Delete maintenance - ADMIN only
                         .requestMatchers(
                                 HttpMethod.DELETE,
                                 "/api/maintenance/**"
                         )
                         .hasRole("ADMIN")
 
-                        // View maintenance - ADMIN + TECHNICIAN
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/maintenance/**"
@@ -136,8 +127,6 @@ public class SecurityConfig {
                                 "TECHNICIAN"
                         )
 
-                        // Update maintenance
-                        // ADMIN + TECHNICIAN
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/maintenance/**"
@@ -148,6 +137,85 @@ public class SecurityConfig {
                         )
 
 
+                        // ==================================
+                        // BREAKDOWN MANAGEMENT
+                        // ==================================
+
+                        // Create breakdown
+                        // ADMIN + TECHNICIAN
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/breakdowns"
+                        )
+                        .hasAnyRole(
+                                "ADMIN",
+                                "TECHNICIAN"
+                        )
+
+                        // Delete breakdown
+                        // ADMIN ONLY
+                        .requestMatchers(
+                                HttpMethod.DELETE,
+                                "/api/breakdowns/**"
+                        )
+                        .hasRole("ADMIN")
+
+                        // View breakdowns
+                        // ADMIN + TECHNICIAN
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/breakdowns/**"
+                        )
+                        .hasAnyRole(
+                                "ADMIN",
+                                "TECHNICIAN"
+                        )
+
+                        // Update breakdown
+                        // ADMIN + TECHNICIAN
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/breakdowns/**"
+                        )
+                        .hasAnyRole(
+                                "ADMIN",
+                                "TECHNICIAN"
+                        )
+
+// ==================================
+// SPARE PARTS INVENTORY
+// ==================================
+
+// Create spare part - ADMIN ONLY
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/spare-parts"
+                                )
+                                .hasRole("ADMIN")
+
+// Update spare part - ADMIN ONLY
+                                .requestMatchers(
+                                        HttpMethod.PUT,
+                                        "/api/spare-parts/**"
+                                )
+                                .hasRole("ADMIN")
+
+// Delete spare part - ADMIN ONLY
+                                .requestMatchers(
+                                        HttpMethod.DELETE,
+                                        "/api/spare-parts/**"
+                                )
+                                .hasRole("ADMIN")
+
+// View spare parts - ADMIN + TECHNICIAN
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/spare-parts/**"
+                                )
+                                .hasAnyRole(
+                                        "ADMIN",
+                                        "TECHNICIAN"
+                                )
                         // ==================================
                         // ALL OTHER APIs
                         // ==================================
@@ -167,6 +235,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
 }
