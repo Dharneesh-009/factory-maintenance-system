@@ -1,0 +1,527 @@
+/* =========================================
+   MACHINES PAGE
+========================================= */
+
+.machines-page {
+  width: 100%;
+  min-height: 100%;
+  color: #e7e9ec;
+}
+
+
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.machines-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.machines-heading h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #e7e9ec;
+}
+
+.machines-heading p {
+  margin: 7px 0 0;
+  font-size: 13px;
+  color: #8d949c;
+}
+
+
+/* =========================================
+   ADD MACHINE BUTTON
+========================================= */
+
+.add-machine-btn {
+  padding: 10px 17px;
+  border: 1px solid rgba(111, 146, 123, 0.3);
+  border-radius: 7px;
+  background: rgba(111, 146, 123, 0.1);
+  color: #9aae9f;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-machine-btn:hover {
+  background: rgba(111, 146, 123, 0.16);
+  border-color: rgba(111, 146, 123, 0.45);
+}
+
+
+/* =========================================
+   MACHINE CONTENT
+========================================= */
+
+.machines-content {
+  width: 100%;
+  min-height: 300px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  background: #1c2125;
+}
+
+.machines-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  text-align: center;
+}
+
+.machines-empty-state h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #dfe2e5;
+}
+
+.machines-empty-state p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #858d95;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .machines-heading {
+    align-items: flex-start;
+    gap: 18px;
+    flex-direction: column;
+  }
+
+  .machines-content {
+    padding: 20px;
+  }
+
+}
+
+/* =========================================
+   MACHINE TABLE HEADER
+========================================= */
+
+.machine-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.machine-table-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #dfe2e5;
+}
+
+.machine-table-header p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #858d95;
+}
+
+
+/* =========================================
+   MACHINE TABLE WRAPPER
+========================================= */
+
+.machine-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+/* =========================================
+   MACHINE TABLE
+========================================= */
+
+.machine-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.machine-table thead {
+  background: #181d21;
+}
+
+.machine-table th {
+  padding: 13px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #858d95;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.machine-table td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+  color: #aeb4ba;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.machine-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.machine-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.machine-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   MACHINE NAME
+========================================= */
+
+.machine-name {
+  color: #dfe2e5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   MACHINE STATUS
+========================================= */
+
+.machine-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.machine-status.running {
+  background: rgba(111, 146, 123, 0.12);
+  color: #8eaa98;
+}
+
+.machine-status.maintenance {
+  background: rgba(162, 139, 93, 0.12);
+  color: #b4a276;
+}
+
+.machine-status.stopped {
+  background: rgba(154, 98, 98, 0.12);
+  color: #b78686;
+}
+
+
+/* =========================================
+   MACHINE ACTIONS
+========================================= */
+
+.machine-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.machine-action-btn {
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  background: #20252a;
+  color: #9ba1a8;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.machine-action-btn:hover {
+  border-color: rgba(111, 146, 123, 0.3);
+  background: #252b30;
+  color: #c4cbc7;
+}
+
+
+/* =========================================
+   RESPONSIVE TABLE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .machines-content {
+    padding: 20px;
+  }
+
+  .machine-table-header {
+    margin-bottom: 16px;
+  }
+
+}
+
+/* =========================================
+   ADD MACHINE MODAL
+========================================= */
+
+.machine-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(5, 8, 10, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.machine-modal {
+  width: 100%;
+  max-width: 500px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+
+  background: #1b2024;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+
+/* =========================================
+   MODAL HEADER
+========================================= */
+
+.machine-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 22px 24px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.machine-modal-header h2 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #dfe2e5;
+}
+
+.machine-modal-header p {
+  margin: 6px 0 0;
+
+  font-size: 12px;
+
+  color: #858d95;
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.machine-modal-close {
+  width: 30px;
+  height: 30px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #858d95;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.machine-modal-close:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #dfe2e5;
+}
+
+
+/* =========================================
+   MACHINE FORM
+========================================= */
+
+.machine-form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+
+  padding: 24px;
+}
+
+.machine-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.machine-form-group label {
+  font-size: 12px;
+  font-weight: 500;
+
+  color: #aeb4ba;
+}
+
+.machine-form-group input,
+.machine-form-group select {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 10px 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #161b1f;
+  color: #dfe2e5;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.machine-form-group input::placeholder {
+  color: #626a72;
+}
+
+.machine-form-group input:focus,
+.machine-form-group select:focus {
+  border-color: rgba(111, 146, 123, 0.45);
+  background: #181e22;
+}
+
+.machine-form-group select {
+  cursor: pointer;
+}
+
+
+/* =========================================
+   MODAL ACTIONS
+========================================= */
+
+.machine-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+
+  padding: 18px 24px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================
+   CANCEL BUTTON
+========================================= */
+
+.machine-cancel-btn {
+  padding: 9px 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 7px;
+
+  background: #20252a;
+
+  color: #9ba1a8;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.machine-cancel-btn:hover {
+  background: #252b30;
+  color: #c4cbc7;
+}
+
+
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+.machine-save-btn {
+  padding: 9px 16px;
+
+  border: 1px solid rgba(111, 146, 123, 0.3);
+  border-radius: 7px;
+
+  background: rgba(111, 146, 123, 0.1);
+
+  color: #9aae9f;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.machine-save-btn:hover {
+  background: rgba(111, 146, 123, 0.17);
+  border-color: rgba(111, 146, 123, 0.45);
+}
+
+
+/* =========================================
+   MODAL RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .machine-modal {
+    max-width: 100%;
+  }
+
+  .machine-modal-header,
+  .machine-form,
+  .machine-modal-actions {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+}

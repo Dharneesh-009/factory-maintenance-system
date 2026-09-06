@@ -8,27 +8,24 @@ import {
 import { AuthProvider } from "./context/AuthContext";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import MainLayout from "./components/layout/MainLayout";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
-const DashboardPlaceholder = () => {
-  return (
-    <div style={{ padding: "40px" }}>
-      <h1>Dashboard</h1>
-      <p>Authentication successful.</p>
-    </div>
-  );
-};
+import Dashboard from "./pages/Dashboard";
+import Machines from "./pages/Machines/Machines";
 
 const App = () => {
   return (
     <BrowserRouter>
+
       <AuthProvider>
 
         <Routes>
 
-          {/* Public Routes */}
+          {/* =========================
+              PUBLIC ROUTES
+          ========================= */}
 
           <Route
             path="/login"
@@ -41,19 +38,30 @@ const App = () => {
           />
 
 
-          {/* Protected Routes */}
+          {/* =========================
+              PROTECTED ROUTES
+          ========================= */}
 
           <Route element={<ProtectedRoute />}>
 
-            <Route
-              path="/dashboard"
-              element={<DashboardPlaceholder />}
-            />
+            <Route element={<MainLayout />}>
+
+              <Route
+                path="/dashboard"
+                element={<Dashboard />}
+              />
+<Route
+  path="/machines"
+  element={<Machines />}
+/>
+            </Route>
 
           </Route>
 
 
-          {/* Default Route */}
+          {/* =========================
+              DEFAULT ROUTE
+          ========================= */}
 
           <Route
             path="/"
@@ -68,6 +76,7 @@ const App = () => {
         </Routes>
 
       </AuthProvider>
+
     </BrowserRouter>
   );
 };
