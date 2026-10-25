@@ -54,6 +54,7 @@ public class MachineService {
     }
 
     // Update machine
+    // Update machine
     public Machine updateMachine(
             Long id,
             Machine updatedMachine
@@ -61,6 +62,21 @@ public class MachineService {
 
         Machine existingMachine =
                 getMachineById(id);
+
+        String newSerialNumber =
+                updatedMachine.getSerialNumber();
+
+        // Check duplicate serial number
+        // only when the serial number is being changed
+        if (!newSerialNumber.equals(
+                existingMachine.getSerialNumber())
+                && machineRepository.existsBySerialNumber(
+                newSerialNumber)) {
+
+            throw new RuntimeException(
+                    "Machine with this serial number already exists"
+            );
+        }
 
         existingMachine.setName(
                 updatedMachine.getName()
@@ -71,7 +87,7 @@ public class MachineService {
         );
 
         existingMachine.setSerialNumber(
-                updatedMachine.getSerialNumber()
+                newSerialNumber
         );
 
         existingMachine.setLocation(

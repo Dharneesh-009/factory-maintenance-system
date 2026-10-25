@@ -43,14 +43,8 @@ public class AuthService {
                 passwordEncoder.encode(request.getPassword())
         );
 
-        // Default role
-        String role = request.getRole();
-
-        if (role == null || role.isBlank()) {
-            role = "TECHNICIAN";
-        }
-
-        user.setRole(role.toUpperCase());
+        // All public registrations are TECHNICIANS
+        user.setRole("TECHNICIAN");
 
         userRepository.save(user);
 

@@ -1,8 +1,9 @@
 package com.factorymaintenance.controller;
 
 import com.factorymaintenance.dto.MaintenanceRequest;
-import com.factorymaintenance.entity.MaintenanceRecord;
+import com.factorymaintenance.dto.MaintenanceResponse;
 import com.factorymaintenance.service.MaintenanceService;
+import com.factorymaintenance.dto.TechnicianResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,137 +22,132 @@ public class MaintenanceController {
         this.maintenanceService = maintenanceService;
     }
 
-    // ==========================================
-    // CREATE
-    // POST /api/maintenance
-    // ==========================================
+    // =========================================
+    // CREATE MAINTENANCE
+    // =========================================
 
     @PostMapping
-    public ResponseEntity<MaintenanceRecord>
-    createMaintenance(
+    public ResponseEntity<MaintenanceResponse> createMaintenance(
             @RequestBody MaintenanceRequest request
     ) {
-
         return ResponseEntity.ok(
-                maintenanceService
-                        .createMaintenance(request)
+                maintenanceService.createMaintenance(request)
         );
     }
 
-    // ==========================================
-    // GET ALL
-    // GET /api/maintenance
-    // ==========================================
+
+    // =========================================
+    // GET ALL MAINTENANCE
+    // =========================================
 
     @GetMapping
-    public ResponseEntity<List<MaintenanceRecord>>
-    getAllMaintenance() {
+    public ResponseEntity<List<MaintenanceResponse>> getAllMaintenance() {
 
         return ResponseEntity.ok(
-                maintenanceService
-                        .getAllMaintenance()
+                maintenanceService.getAllMaintenance()
         );
     }
 
-    // ==========================================
-    // FILTER BY STATUS
-    // GET /api/maintenance/status/{status}
-    // ==========================================
+
+    // =========================================
+    // GET MAINTENANCE BY STATUS
+    // =========================================
 
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<MaintenanceRecord>>
-    getMaintenanceByStatus(
+    public ResponseEntity<List<MaintenanceResponse>> getMaintenanceByStatus(
             @PathVariable String status
     ) {
 
         return ResponseEntity.ok(
-                maintenanceService
-                        .getMaintenanceByStatus(status)
+                maintenanceService.getMaintenanceByStatus(status)
         );
     }
 
-    // ==========================================
-    // GET BY MACHINE
-    // GET /api/maintenance/machine/{machineId}
-    // ==========================================
+
+    // =========================================
+    // GET MAINTENANCE BY MACHINE
+    // =========================================
 
     @GetMapping("/machine/{machineId}")
-    public ResponseEntity<List<MaintenanceRecord>>
-    getMaintenanceByMachine(
+    public ResponseEntity<List<MaintenanceResponse>> getMaintenanceByMachine(
             @PathVariable Long machineId
     ) {
 
         return ResponseEntity.ok(
-                maintenanceService
-                        .getMaintenanceByMachine(machineId)
+                maintenanceService.getMaintenanceByMachine(machineId)
         );
     }
 
-    // ==========================================
-    // GET BY TECHNICIAN
-    // GET /api/maintenance/technician/{technicianId}
-    // ==========================================
+
+    // =========================================
+    // GET MAINTENANCE BY TECHNICIAN
+    // =========================================
 
     @GetMapping("/technician/{technicianId}")
-    public ResponseEntity<List<MaintenanceRecord>>
-    getMaintenanceByTechnician(
+    public ResponseEntity<List<MaintenanceResponse>> getMaintenanceByTechnician(
             @PathVariable Long technicianId
     ) {
 
         return ResponseEntity.ok(
-                maintenanceService
-                        .getMaintenanceByTechnician(
-                                technicianId
-                        )
+                maintenanceService.getMaintenanceByTechnician(technicianId)
         );
     }
 
-    // ==========================================
-    // GET BY ID
-    // GET /api/maintenance/{id}
-    // ==========================================
+
+    // =========================================
+    // GET MAINTENANCE BY ID
+    // =========================================
 
     @GetMapping("/{id}")
-    public ResponseEntity<MaintenanceRecord>
-    getMaintenanceById(
+    public ResponseEntity<MaintenanceResponse> getMaintenanceById(
             @PathVariable Long id
     ) {
 
         return ResponseEntity.ok(
-                maintenanceService
-                        .getMaintenanceById(id)
+                maintenanceService.getMaintenanceById(id)
         );
     }
 
-    // ==========================================
-    // UPDATE
-    // PUT /api/maintenance/{id}
-    // ==========================================
+
+    // =========================================
+    // UPDATE MAINTENANCE
+    // =========================================
 
     @PutMapping("/{id}")
-    public ResponseEntity<MaintenanceRecord>
-    updateMaintenance(
+    public ResponseEntity<MaintenanceResponse> updateMaintenance(
             @PathVariable Long id,
             @RequestBody MaintenanceRequest request
     ) {
 
         return ResponseEntity.ok(
-                maintenanceService
-                        .updateMaintenance(
-                                id,
-                                request
-                        )
+                maintenanceService.updateMaintenance(id, request)
         );
     }
 
-    // ==========================================
-    // DELETE
-    // DELETE /api/maintenance/{id}
-    // ==========================================
+
+    // =========================================
+    // UPDATE MAINTENANCE STATUS
+    // =========================================
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<MaintenanceResponse> updateMaintenanceStatus(
+            @PathVariable Long id,
+            @RequestBody MaintenanceRequest request
+    ) {
+        return ResponseEntity.ok(
+                maintenanceService.updateMaintenanceStatus(
+                        id,
+                        request.getStatus()
+                )
+        );
+    }
+
+    // =========================================
+    // DELETE MAINTENANCE
+    // =========================================
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String>
-    deleteMaintenance(
+    public ResponseEntity<String> deleteMaintenance(
             @PathVariable Long id
     ) {
 
@@ -161,4 +157,17 @@ public class MaintenanceController {
                 "Maintenance deleted successfully"
         );
     }
+
+    // =========================================
+// GET ALL TECHNICIANS
+// =========================================
+
+    @GetMapping("/technicians")
+    public ResponseEntity<List<TechnicianResponse>> getAllTechnicians() {
+
+        return ResponseEntity.ok(
+                maintenanceService.getAllTechnicians()
+        );
+    }
+
 }

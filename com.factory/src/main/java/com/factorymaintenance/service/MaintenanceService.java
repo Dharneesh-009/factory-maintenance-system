@@ -1,13 +1,17 @@
+
 package com.factorymaintenance.service;
 
 import com.factorymaintenance.dto.MaintenanceRequest;
+import com.factorymaintenance.dto.MaintenanceResponse;
 import com.factorymaintenance.entity.Machine;
 import com.factorymaintenance.entity.MaintenanceRecord;
 import com.factorymaintenance.entity.User;
+import com.factorymaintenance.exception.ResourceNotFoundException;
 import com.factorymaintenance.repository.MachineRepository;
 import com.factorymaintenance.repository.MaintenanceRepository;
 import com.factorymaintenance.repository.UserRepository;
-
+import com.factorymaintenance.dto.TechnicianResponse;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,126 +33,125 @@ public class MaintenanceService {
         this.userRepository = userRepository;
     }
 
-    // ==========================================
-    // CREATE MAINTENANCE
-    // ==========================================
+    // Convert entity to a safe response DTO
+    private MaintenanceResponse convertToResponse(
+            MaintenanceRecord maintenance
+    ) {
+        MaintenanceResponse response = new MaintenanceResponse();
 
-    public MaintenanceRecord createMaintenance(
+        response.setId(maintenance.getId());
+
+        Machine machine = maintenance.getMachine();
+
+        if (machine != null) {
+            response.setMachineId(machine.getId());
+            response.setMachineName(machine.getName());
+            response.setMachineModel(machine.getModel());
+            response.setMachineSerialNumber(machine.getSerialNumber());
+            response.setMachineLocation(machine.getLocation());
+            response.setMachineStatus(machine.getStatus());
+        }
+
+        User technician = maintenance.getTechnician();
+
+        if (technician != null) {
+            response.setTechnicianId(technician.getId());
+            response.setTechnicianName(technician.getName());
+            response.setTechnicianEmail(technician.getEmail());
+        }
+
+        response.setMaintenanceDate(maintenance.getMaintenanceDate());
+        response.setDescription(maintenance.getDescription());
+        response.setStatus(maintenance.getStatus());
+
+        return response;
+    }
+
+    // Create maintenance
+    public MaintenanceResponse createMaintenance(
             MaintenanceRequest request
     ) {
-
         Machine machine = machineRepository
                 .findById(request.getMachineId())
                 .orElseThrow(() ->
-                        new RuntimeException(
-                                "Machine not found"
+                        new ResourceNotFoundException(
+                                "Machine not found with id: "
+                                        + request.getMachineId()
                         )
                 );
 
-        MaintenanceRecord maintenance =
-                new MaintenanceRecord();
-
+        MaintenanceRecord maintenance = new MaintenanceRecord();
         maintenance.setMachine(machine);
 
-        // Find technician if provided
         if (request.getTechnicianId() != null) {
-
             User technician = userRepository
                     .findById(request.getTechnicianId())
                     .orElseThrow(() ->
-                            new RuntimeException(
-                                    "Technician not found"
+                            new ResourceNotFoundException(
+                                    "Technician not found with id: "
+                                            + request.getTechnicianId()
                             )
                     );
 
             maintenance.setTechnician(technician);
         }
 
-        maintenance.setMaintenanceDate(
-                request.getMaintenanceDate()
-        );
+        maintenance.setMaintenanceDate(request.getMaintenanceDate());
+        maintenance.setDescription(request.getDescription());
 
-        maintenance.setDescription(
-                request.getDescription()
-        );
+        String status = request.getStatus();
 
-        // Default status
-        if (request.getStatus() == null ||
-                request.getStatus().isBlank()) {
-
+        if (status == null || status.isBlank()) {
             maintenance.setStatus("PENDING");
-
         } else {
-
-            maintenance.setStatus(
-                    request.getStatus().toUpperCase()
-            );
+            maintenance.setStatus(status.trim().toUpperCase());
         }
 
-        return maintenanceRepository.save(maintenance);
+        MaintenanceRecord saved = maintenanceRepository.save(maintenance);
+
+        return convertToResponse(saved);
     }
 
-    // ==========================================
-    // GET ALL
-    // ==========================================
-
-    public List<MaintenanceRecord>
-    getAllMaintenance() {
-
-        return maintenanceRepository.findAll();
+    // Get all maintenance records
+    public List<MaintenanceResponse> getAllMaintenance() {
+        return maintenanceRepository.findAll()
+                .stream()
+                .map(this::convertToResponse)
+                .toList();
     }
 
-    // ==========================================
-    // GET BY ID
-    // ==========================================
-
-    public MaintenanceRecord
-    getMaintenanceById(Long id) {
-
-        return maintenanceRepository
-                .findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Maintenance record not found with id: "
-                                        + id
-                        )
-                );
+    // Get one maintenance record by ID
+    public MaintenanceResponse getMaintenanceById(Long id) {
+        return convertToResponse(getMaintenanceEntityById(id));
     }
 
-    // ==========================================
-    // UPDATE
-    // ==========================================
-
-    public MaintenanceRecord updateMaintenance(
+    // Update maintenance
+    public MaintenanceResponse updateMaintenance(
             Long id,
             MaintenanceRequest request
     ) {
+        MaintenanceRecord existing = getMaintenanceEntityById(id);
 
-        MaintenanceRecord existing =
-                getMaintenanceById(id);
-
-        // Update machine
         if (request.getMachineId() != null) {
-
             Machine machine = machineRepository
                     .findById(request.getMachineId())
                     .orElseThrow(() ->
-                            new RuntimeException(
-                                    "Machine not found"
+                            new ResourceNotFoundException(
+                                    "Machine not found with id: "
+                                            + request.getMachineId()
                             )
                     );
 
             existing.setMachine(machine);
         }
 
-        // Update technician
         if (request.getTechnicianId() != null) {
-
             User technician = userRepository
                     .findById(request.getTechnicianId())
                     .orElseThrow(() ->
-                            new RuntimeException(
-                                    "Technician not found"
+                            new ResourceNotFoundException(
+                                    "Technician not found with id: "
+                                            + request.getTechnicianId()
                             )
                     );
 
@@ -156,71 +159,106 @@ public class MaintenanceService {
         }
 
         if (request.getMaintenanceDate() != null) {
-
-            existing.setMaintenanceDate(
-                    request.getMaintenanceDate()
-            );
+            existing.setMaintenanceDate(request.getMaintenanceDate());
         }
 
         if (request.getDescription() != null) {
-
-            existing.setDescription(
-                    request.getDescription()
-            );
+            existing.setDescription(request.getDescription());
         }
 
-        if (request.getStatus() != null) {
-
-            existing.setStatus(
-                    request.getStatus().toUpperCase()
-            );
+        if (request.getStatus() != null
+                && !request.getStatus().isBlank()) {
+            existing.setStatus(request.getStatus().trim().toUpperCase());
         }
 
-        return maintenanceRepository.save(existing);
+        MaintenanceRecord saved = maintenanceRepository.save(existing);
+
+        return convertToResponse(saved);
     }
 
-    // ==========================================
-    // DELETE
-    // ==========================================
 
+    // Update maintenance status only
+    public MaintenanceResponse updateMaintenanceStatus(
+            Long id,
+            String status
+    ) {
+        MaintenanceRecord existing = getMaintenanceEntityById(id);
+
+        if (status == null || status.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Maintenance status is required."
+            );
+        }
+
+        String normalizedStatus = status.trim().toUpperCase();
+
+        if (!List.of("PENDING", "IN_PROGRESS", "COMPLETED")
+                .contains(normalizedStatus)) {
+            throw new IllegalArgumentException(
+                    "Invalid status. Allowed values: PENDING, IN_PROGRESS, COMPLETED."
+            );
+        }
+
+        existing.setStatus(normalizedStatus);
+
+        MaintenanceRecord saved = maintenanceRepository.save(existing);
+
+        return convertToResponse(saved);
+    }
+
+    // Find a maintenance entity or return 404
+    private MaintenanceRecord getMaintenanceEntityById(Long id) {
+        return maintenanceRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Maintenance record not found with id: " + id
+                        )
+                );
+    }
+
+    // Delete maintenance
     public void deleteMaintenance(Long id) {
-
-        MaintenanceRecord maintenance =
-                getMaintenanceById(id);
-
+        MaintenanceRecord maintenance = getMaintenanceEntityById(id);
         maintenanceRepository.delete(maintenance);
     }
 
-    // ==========================================
-    // FILTER BY STATUS
-    // ==========================================
-
-    public List<MaintenanceRecord>
-    getMaintenanceByStatus(String status) {
-
-        return maintenanceRepository
-                .findByStatus(status.toUpperCase());
+    // Filter by status
+    public List<MaintenanceResponse> getMaintenanceByStatus(String status) {
+        return maintenanceRepository.findByStatus(status.trim().toUpperCase())
+                .stream()
+                .map(this::convertToResponse)
+                .toList();
     }
 
-    // ==========================================
-    // GET BY MACHINE
-    // ==========================================
-
-    public List<MaintenanceRecord>
-    getMaintenanceByMachine(Long machineId) {
-
-        return maintenanceRepository
-                .findByMachineId(machineId);
+    // Filter by machine
+    public List<MaintenanceResponse> getMaintenanceByMachine(Long machineId) {
+        return maintenanceRepository.findByMachineId(machineId)
+                .stream()
+                .map(this::convertToResponse)
+                .toList();
     }
 
-    // ==========================================
-    // GET BY TECHNICIAN
-    // ==========================================
-
-    public List<MaintenanceRecord>
-    getMaintenanceByTechnician(Long technicianId) {
-
-        return maintenanceRepository
-                .findByTechnicianId(technicianId);
+    // Filter by technician
+    public List<MaintenanceResponse> getMaintenanceByTechnician(
+            Long technicianId
+    ) {
+        return maintenanceRepository.findByTechnicianId(technicianId)
+                .stream()
+                .map(this::convertToResponse)
+                .toList();
     }
+
+    // Get all technicians for the maintenance dropdown
+    public List<TechnicianResponse> getAllTechnicians() {
+
+        return userRepository.findByRoleIgnoreCase("TECHNICIAN")
+                .stream()
+                .map(user -> new TechnicianResponse(
+                        user.getId(),
+                        user.getName(),
+                        user.getEmail()
+                ))
+                .collect(Collectors.toList());
+    }
+
 }

@@ -12,4 +12,9 @@ public interface MachineRepository extends JpaRepository<Machine, Long> {
     List<Machine> findByNameContainingIgnoreCase(String name);
 
     boolean existsBySerialNumber(String serialNumber);
+
+    boolean existsBySerialNumberAndIdNot(
+            String serialNumber,
+            Long id
+    );
 }
