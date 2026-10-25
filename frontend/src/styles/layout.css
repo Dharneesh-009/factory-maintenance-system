@@ -1,0 +1,229 @@
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #17212b;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+
+/* =========================
+   SIDEBAR BRAND
+========================= */
+
+.sidebar-brand {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-brand h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.sidebar-brand span {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+
+/* =========================
+   SIDEBAR NAVIGATION
+========================= */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  gap: 6px;
+}
+
+.sidebar-nav a {
+  color: #d9e1e8;
+  text-decoration: none;
+
+  padding: 13px 15px;
+
+  border-radius: 8px;
+
+  transition: 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.sidebar-nav a.active {
+  background: #2d7ff9;
+  color: white;
+}
+
+
+/* =========================
+   SIDEBAR BOTTOM
+========================= */
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-role {
+  font-size: 13px;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+.logout-button {
+  width: 100%;
+
+  padding: 11px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #b83232;
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 14px;
+}
+
+.logout-button:hover {
+  opacity: 0.9;
+}
+
+
+/* =========================
+   MAIN SECTION
+========================= */
+
+.main-section {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  height: 70px;
+
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 30px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notification-icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.user-info span {
+  font-size: 11px;
+  color: #777;
+}
+
+.user-info strong {
+  font-size: 14px;
+}
+
+
+/* =========================
+   PAGE CONTENT
+========================= */
+
+.page-content {
+  padding: 30px;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-page {
+  width: 100%;
+}
+
+.page-heading h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.page-heading p {
+  margin-top: 8px;
+  color: #666;
+}
+
+.dashboard-placeholder {
+  margin-top: 30px;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 12px;
+
+  border: 1px solid #e5e7eb;
+}
+
+.dashboard-placeholder h2 {
+  margin-top: 0;
+}
