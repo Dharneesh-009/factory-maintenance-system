@@ -1,3 +1,4 @@
+
 import {
   BrowserRouter,
   Routes,
@@ -14,19 +15,17 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Machines from "./pages/Machines/Machines";
+import Maintenance from "./pages/Maintenance/Maintenance";
+import Breakdowns from "./pages/Breakdowns/Breakdowns";
+import SpareParts from "./pages/spareparts/SpareParts";
+import Notifications from "./pages/Notifications/Notifications";
 
 const App = () => {
   return (
     <BrowserRouter>
-
       <AuthProvider>
-
         <Routes>
-
-          {/* =========================
-              PUBLIC ROUTES
-          ========================= */}
-
+          {/* Public routes */}
           <Route
             path="/login"
             element={<Login />}
@@ -37,32 +36,43 @@ const App = () => {
             element={<Register />}
           />
 
-
-          {/* =========================
-              PROTECTED ROUTES
-          ========================= */}
-
+          {/* Protected routes with shared layout */}
           <Route element={<ProtectedRoute />}>
-
             <Route element={<MainLayout />}>
-
               <Route
                 path="/dashboard"
                 element={<Dashboard />}
               />
+
+              <Route
+                path="/machines"
+                element={<Machines />}
+              />
+
+              <Route
+                path="/maintenance"
+                element={<Maintenance />}
+              />
+
+              <Route
+                path="/breakdowns"
+                element={<Breakdowns />}
+              />
+
+              <Route
+  path="/spare-parts"
+  element={<SpareParts />}
+/>
+
+
 <Route
-  path="/machines"
-  element={<Machines />}
+  path="/notifications"
+  element={<Notifications />}
 />
             </Route>
-
           </Route>
 
-
-          {/* =========================
-              DEFAULT ROUTE
-          ========================= */}
-
+          {/* Default route */}
           <Route
             path="/"
             element={
@@ -72,11 +82,8 @@ const App = () => {
               />
             }
           />
-
         </Routes>
-
       </AuthProvider>
-
     </BrowserRouter>
   );
 };

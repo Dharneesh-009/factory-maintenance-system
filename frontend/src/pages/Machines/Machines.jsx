@@ -76,45 +76,49 @@ const [editError, setEditError] = useState("");
   // =========================
 
   const handleAddMachine = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    try {
-      setSaving(true);
-      setFormError("");
+  try {
+    setSaving(true);
+    setFormError("");
 
-      const newMachine =
-        await machineService.createMachine(machineForm);
+    const newMachine =
+      await machineService.createMachine(machineForm);
 
-      setMachines((previousMachines) => [
-        ...previousMachines,
-        newMachine,
-      ]);
+    setMachines((previousMachines) => [
+      ...previousMachines,
+      newMachine,
+    ]);
 
-      setMachineForm({
-        name: "",
-        model: "",
-        serialNumber: "",
-        location: "",
-        status: "RUNNING",
-      });
+    setMachineForm({
+      name: "",
+      model: "",
+      serialNumber: "",
+      location: "",
+      status: "RUNNING",
+    });
 
-      setShowAddModal(false);
+    setShowAddModal(false);
 
-    } catch (err) {
-      console.error(
-        "Failed to create machine:",
-        err
-      );
+  } catch (err) {
+    console.error(
+      "Failed to create machine:",
+      err
+    );
 
-      setFormError(
-        err.response?.data ||
-        "Unable to create machine."
-      );
+    const message =
+      typeof err.response?.data === "string"
+        ? err.response.data
+        : err.response?.data?.message
+        ? err.response.data.message
+        : "Unable to create machine.";
 
-    } finally {
-      setSaving(false);
-    }
-  };
+    setFormError(message);
+
+  } finally {
+    setSaving(false);
+  }
+};
 
   // =========================
   // SEARCH & STATUS FILTER
@@ -243,6 +247,7 @@ const handleEditMachine = async (id) => {
 // HANDLE DELETE MACHINE
 // =========================
 
+
 const handleDeleteMachine = async (id) => {
   const confirmed = window.confirm(
     "Are you sure you want to delete this machine?"
@@ -253,6 +258,8 @@ const handleDeleteMachine = async (id) => {
   }
 
   try {
+    setError("");
+
     await machineService.deleteMachine(id);
 
     setMachines((previousMachines) =>
@@ -261,18 +268,26 @@ const handleDeleteMachine = async (id) => {
       )
     );
 
+    setError("Machine deleted successfully.");
+
   } catch (err) {
     console.error(
       "Failed to delete machine:",
       err
     );
 
-    setError(
-  err.response?.data?.message ||
-  "Unable to delete machine."
-);
+    const message =
+      typeof err.response?.data === "string"
+        ? err.response.data
+        : err.response?.data?.message
+        ? err.response.data.message
+        : "Unable to delete machine.";
+
+    setError(message);
   }
 };
+
+
 
   // =========================
   // LOAD ALL MACHINES
@@ -1038,17 +1053,21 @@ const handleDeleteMachine = async (id) => {
           setShowEditModal(false);
           setEditMachine(null);
 
-        } catch (err) {
+                } catch (err) {
 
           console.error(
             "Failed to update machine:",
             err
           );
 
-          setEditError(
-            err.response?.data ||
-            "Unable to update machine."
-          );
+          const message =
+            typeof err.response?.data === "string"
+              ? err.response.data
+              : err.response?.data?.message
+              ? err.response.data.message
+              : "Unable to update machine.";
+
+          setEditError(message);
 
         } finally {
           setEditSaving(false);

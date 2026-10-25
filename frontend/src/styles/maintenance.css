@@ -1,0 +1,1137 @@
+/* =========================
+   MAINTENANCE PAGE
+========================= */
+
+.maintenance-page {
+  width: 100%;
+  padding: 30px;
+}
+
+.maintenance-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.maintenance-heading h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.maintenance-heading p {
+  margin-top: 8px;
+  color: #777;
+  font-size: 14px;
+}
+
+.maintenance-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.maintenance-table-header {
+  margin-bottom: 20px;
+}
+
+.maintenance-table-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.maintenance-table-header p {
+  margin-top: 6px;
+  color: #777;
+  font-size: 13px;
+}
+
+.maintenance-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.maintenance-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: collapse;
+}
+
+.maintenance-table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  background: #f7f8fa;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.maintenance-table td {
+  padding: 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.maintenance-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.maintenance-machine-name {
+  font-weight: 600;
+  color: #222;
+}
+
+.maintenance-technician-name {
+  font-weight: 500;
+  color: #222;
+}
+
+.maintenance-technician-email {
+  color: #777;
+  font-size: 12px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.maintenance-status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.maintenance-status.pending {
+  background: #fff4d6;
+  color: #9a6700;
+}
+
+.maintenance-status.in-progress {
+  background: #e8f1ff;
+  color: #2563eb;
+}
+
+.maintenance-status.completed {
+  background: #e7f7ed;
+  color: #15803d;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.maintenance-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.maintenance-action-btn {
+  border: none;
+  background: #f1f3f5;
+  color: #333;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.maintenance-action-btn:hover {
+  background: #e2e5e8;
+}
+
+/* =========================
+   TABLE MESSAGES
+========================= */
+
+.maintenance-table-message {
+  text-align: center;
+  padding: 30px !important;
+  color: #777;
+}
+
+.maintenance-table-message.error {
+  color: #c62828;
+}
+
+/* =========================
+   VIEW MAINTENANCE MODAL
+========================= */
+
+.maintenance-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+  padding: 20px;
+}
+
+.maintenance-modal {
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: #ffffff;
+  border-radius: 14px;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================
+   MODAL HEADER
+========================= */
+
+.maintenance-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.maintenance-modal-header h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 650;
+  color: #222;
+}
+
+.maintenance-modal-header p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.maintenance-modal-close {
+  border: none;
+  background: transparent;
+
+  font-size: 28px;
+  line-height: 1;
+
+  color: #777;
+  cursor: pointer;
+
+  padding: 2px 6px;
+}
+
+.maintenance-modal-close:hover {
+  color: #222;
+}
+
+/* =========================
+   MODAL DETAILS
+========================= */
+
+.maintenance-details {
+  padding: 24px;
+}
+
+.maintenance-detail-section {
+  margin-bottom: 28px;
+}
+
+.maintenance-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.maintenance-detail-section h3 {
+  margin: 0 0 16px;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  color: #333;
+}
+
+.maintenance-detail-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+.maintenance-detail-item {
+  padding: 14px;
+
+  background: #f8f9fa;
+
+  border-radius: 9px;
+}
+
+.maintenance-detail-item span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  color: #777;
+}
+
+.maintenance-detail-item strong {
+  display: block;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #222;
+
+  word-break: break-word;
+}
+
+.maintenance-detail-full {
+  grid-column: 1 / -1;
+}
+
+/* =========================
+   MODAL LOADING
+========================= */
+
+.maintenance-modal-loading {
+  padding: 45px 24px;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+/* =========================
+   MODAL FOOTER
+========================= */
+
+.maintenance-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 16px 24px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+.maintenance-modal-close-btn {
+  border: none;
+
+  background: #f1f3f5;
+  color: #333;
+
+  padding: 9px 18px;
+
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.maintenance-modal-close-btn:hover {
+  background: #e2e5e8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .maintenance-page {
+    padding: 20px;
+  }
+
+  .maintenance-content {
+    padding: 16px;
+  }
+
+  .maintenance-heading h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 650px) {
+  .maintenance-modal-overlay {
+    padding: 12px;
+  }
+
+  .maintenance-modal {
+    max-height: 94vh;
+  }
+
+  .maintenance-modal-header {
+    padding: 18px;
+  }
+
+  .maintenance-details {
+    padding: 18px;
+  }
+
+  .maintenance-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .maintenance-detail-full {
+    grid-column: auto;
+  }
+
+  .maintenance-modal-footer {
+    padding: 14px 18px;
+  }
+}
+
+
+
+/* =========================================
+   ADD MAINTENANCE BUTTON
+========================================= */
+
+.maintenance-add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 16px rgba(37, 99, 235, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.maintenance-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.32);
+}
+
+/* =========================================
+   ADD MAINTENANCE MODAL
+========================================= */
+
+.maintenance-add-modal {
+  width: min(680px, calc(100vw - 32px));
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #111827;
+  color: #f3f4f6;
+  border: 1px solid #374151;
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
+  animation: maintenance-modal-enter 0.22s ease-out;
+}
+
+@keyframes maintenance-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.maintenance-add-modal .maintenance-modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 24px 26px;
+  background: #111827;
+  border-bottom: 1px solid #293548;
+}
+
+.maintenance-add-modal .maintenance-modal-header h2 {
+  margin: 0 0 7px;
+  color: #f9fafb;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.maintenance-add-modal .maintenance-modal-header p {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.maintenance-add-modal .maintenance-modal-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #374151;
+  border-radius: 9px;
+  background: #1f2937;
+  color: #d1d5db;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.maintenance-add-modal .maintenance-modal-close:hover {
+  background: #374151;
+  color: #ffffff;
+}
+
+/* =========================================
+   FORM LAYOUT
+========================================= */
+
+.maintenance-add-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 20px;
+  padding: 26px;
+}
+
+.maintenance-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.maintenance-form-group label {
+  color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15px;
+}
+
+.maintenance-form-group label span {
+  color: #f87171;
+}
+
+.maintenance-form-group input,
+.maintenance-form-group select,
+.maintenance-form-group textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 12px 13px;
+  border: 1px solid #374151;
+  border-radius: 9px;
+  outline: none;
+  background-color: #1b2535;
+  color: #f3f4f6;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.maintenance-form-group input,
+.maintenance-form-group select {
+  min-height: 45px;
+}
+
+.maintenance-form-group select {
+  cursor: pointer;
+}
+
+.maintenance-form-group select option {
+  background: #1b2535;
+  color: #f3f4f6;
+}
+
+.maintenance-form-group textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.maintenance-form-group input:focus,
+.maintenance-form-group select:focus,
+.maintenance-form-group textarea:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.13);
+}
+
+.maintenance-form-group input::placeholder,
+.maintenance-form-group textarea::placeholder {
+  color: #7c8799;
+}
+
+.maintenance-form-group small {
+  color: #9ca3af;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Make description and form messages span both columns */
+
+.maintenance-add-form .maintenance-form-group:last-of-type,
+.maintenance-form-error,
+.maintenance-add-form-footer {
+  grid-column: 1 / -1;
+}
+
+/* =========================================
+   FORM ERROR MESSAGE
+========================================= */
+
+.maintenance-form-error {
+  padding: 12px 14px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 9px;
+  background: rgba(127, 29, 29, 0.2);
+  color: #fca5a5;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   FORM FOOTER BUTTONS
+========================================= */
+
+.maintenance-add-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #293548;
+}
+
+.maintenance-cancel-btn,
+.maintenance-submit-btn {
+  min-height: 43px;
+  padding: 11px 18px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.maintenance-cancel-btn {
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: #d1d5db;
+}
+
+.maintenance-cancel-btn:hover:not(:disabled) {
+  background: #374151;
+  color: #ffffff;
+}
+
+.maintenance-submit-btn {
+  border: 1px solid #3b82f6;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.maintenance-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+}
+
+.maintenance-cancel-btn:disabled,
+.maintenance-submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 600px) {
+  .maintenance-heading {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .maintenance-add-btn {
+    width: 100%;
+  }
+
+  .maintenance-add-modal {
+    width: calc(100vw - 20px);
+    max-height: 92vh;
+    border-radius: 14px;
+  }
+
+  .maintenance-add-modal .maintenance-modal-header {
+    padding: 19px;
+  }
+
+  .maintenance-add-form {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 19px;
+  }
+
+  .maintenance-add-form .maintenance-form-group:last-of-type,
+  .maintenance-form-error,
+  .maintenance-add-form-footer {
+    grid-column: 1;
+  }
+
+  .maintenance-add-form-footer {
+    flex-direction: column-reverse;
+  }
+
+  .maintenance-cancel-btn,
+  .maintenance-submit-btn {
+    width: 100%;
+  }
+}
+
+
+/* Edit Maintenance Modal */
+.maintenance-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.maintenance-modal {
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--card-bg, #ffffff);
+  color: var(--text-color, #222222);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+}
+
+.maintenance-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.maintenance-modal-close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.maintenance-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.maintenance-form-group input,
+.maintenance-form-group select,
+.maintenance-form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.maintenance-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.maintenance-status-select {
+  max-width: 150px;
+  padding: 7px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: white;
+  color: #222222;
+}
+
+.maintenance-status-select:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.maintenance-error {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.maintenance-modal-actions button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.maintenance-modal-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .maintenance-modal {
+    padding: 16px;
+  }
+
+  .maintenance-actions {
+    flex-wrap: wrap;
+  }
+
+  .maintenance-status-select {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================================
+   DARK INDUSTRIAL THEME - EDIT MAINTENANCE
+   ========================================= */
+
+.maintenance-modal {
+  background: #111827;
+  color: #f3f4f6;
+  border: 1px solid #374151;
+}
+
+/* Modal headings and labels */
+.maintenance-modal-header h2 {
+  color: #f9fafb;
+}
+
+.maintenance-form-group label {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+/* Input fields, dropdowns and description */
+.maintenance-form-group input,
+.maintenance-form-group select,
+.maintenance-form-group textarea {
+  background-color: #1f2937;
+  color: #f9fafb;
+  border: 1px solid #4b5563;
+  border-radius: 7px;
+  color-scheme: dark;
+}
+
+/* Dropdown options */
+.maintenance-form-group select option {
+  background-color: #1f2937;
+  color: #f9fafb;
+}
+
+/* Placeholder text */
+.maintenance-form-group input::placeholder,
+.maintenance-form-group textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Focus effect */
+.maintenance-form-group input:focus,
+.maintenance-form-group select:focus,
+.maintenance-form-group textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+/* Date picker text and controls */
+.maintenance-form-group input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Modal close button */
+.maintenance-modal-close {
+  color: #d1d5db;
+}
+
+.maintenance-modal-close:hover {
+  color: #ffffff;
+}
+
+/* Cancel button */
+.maintenance-modal-actions .maintenance-cancel-btn {
+  background: #374151;
+  color: #f9fafb;
+  border: 1px solid #4b5563;
+}
+
+.maintenance-modal-actions .maintenance-cancel-btn:hover {
+  background: #4b5563;
+}
+
+/* Save Changes button */
+.maintenance-modal-actions .maintenance-submit-btn {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.maintenance-modal-actions .maintenance-submit-btn:hover {
+  background: #0369a1;
+}
+
+/* Loading text */
+.maintenance-modal p {
+  color: #d1d5db;
+}
+
+
+
+
+/* =========================================
+   MAINTENANCE TABLE — MATCH MACHINES THEME
+========================================= */
+
+.maintenance-page {
+  color: #e7e9ec;
+}
+
+.maintenance-content {
+  background: #1c2125;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.maintenance-table-header {
+  background: #1c2125;
+  color: #e7e9ec;
+  padding: 22px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.maintenance-table-header h2 {
+  color: #e7e9ec;
+  margin: 0 0 6px;
+}
+
+.maintenance-table-header p {
+  color: #858d95;
+  margin: 0;
+}
+
+.maintenance-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #1c2125;
+}
+
+.maintenance-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+  background: #1c2125;
+  color: #dfe2e5;
+}
+
+.maintenance-table thead {
+  background: #181d21;
+}
+
+.maintenance-table th {
+  background: #181d21;
+  color: #aeb4ba;
+  padding: 16px 18px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.maintenance-table td {
+  background: #1c2125;
+  color: #dfe2e5;
+  padding: 16px 18px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  vertical-align: middle;
+}
+
+.maintenance-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.maintenance-table tbody tr:hover td {
+  background: #22282d;
+}
+
+.maintenance-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.maintenance-machine-name,
+.maintenance-technician-name {
+  color: #e7e9ec;
+  font-weight: 600;
+}
+
+.maintenance-technician-email {
+  color: #858d95;
+  overflow-wrap: anywhere;
+}
+
+.maintenance-table-message {
+  color: #aeb4ba !important;
+  text-align: center;
+  padding: 30px !important;
+}
+
+.maintenance-table-message.error {
+  color: #ff8585 !important;
+}
+
+/* Maintenance status badges */
+
+.maintenance-status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.maintenance-status.pending {
+  background: rgba(245, 158, 11, 0.13);
+  color: #f5bd55;
+}
+
+.maintenance-status.in-progress {
+  background: rgba(59, 130, 246, 0.14);
+  color: #7db2ff;
+}
+
+.maintenance-status.completed {
+  background: rgba(34, 197, 94, 0.13);
+  color: #6edb91;
+}
+
+/* Status dropdown */
+
+.maintenance-status-select {
+  background: #20252a;
+  color: #dfe2e5;
+  border: 1px solid #3a424a;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.maintenance-status-select:focus {
+  outline: none;
+  border-color: #6b9f83;
+}
+
+.maintenance-status-select option {
+  background: #20252a;
+  color: #dfe2e5;
+}
+
+
+
+
+/* =========================================
+   MAINTENANCE ACTIONS — SPACING & ALIGNMENT
+========================================= */
+
+.maintenance-table td:last-child {
+  min-width: 230px;
+}
+
+.maintenance-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.maintenance-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  padding: 8px 12px;
+  border: 1px solid #3b4650;
+  border-radius: 6px;
+  background: #28323a;
+  color: #e7e9ec;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.maintenance-action-btn:hover {
+  background: #35434e;
+  border-color: #607585;
+}
+
+.maintenance-delete-btn {
+  background: #40272b;
+  border-color: #704047;
+  color: #ffaaaa;
+}
+
+.maintenance-delete-btn:hover {
+  background: #583036;
+  border-color: #a34b56;
+}
+
+.maintenance-status-select {
+  min-width: 125px;
+  max-width: 150px;
+  margin: 2px 0;
+}
+
+/* Keep controls usable on smaller screens */
+
+@media (max-width: 768px) {
+  .maintenance-table td:last-child {
+    min-width: 200px;
+  }
+
+  .maintenance-actions {
+    gap: 6px;
+  }
+}
