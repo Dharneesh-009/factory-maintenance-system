@@ -3,7 +3,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
@@ -19,6 +18,8 @@ import Maintenance from "./pages/Maintenance/Maintenance";
 import Breakdowns from "./pages/Breakdowns/Breakdowns";
 import SpareParts from "./pages/spareparts/SpareParts";
 import Notifications from "./pages/Notifications/Notifications";
+import Home from "./pages/Home";
+
 
 const App = () => {
   return (
@@ -73,15 +74,11 @@ const App = () => {
           </Route>
 
           {/* Default route */}
-          <Route
-            path="/"
-            element={
-              <Navigate
-                to="/login"
-                replace
-              />
-            }
-          />
+          {/* Public landing page */}
+<Route
+  path="/"
+  element={<Home />}
+/>
         </Routes>
       </AuthProvider>
     </BrowserRouter>

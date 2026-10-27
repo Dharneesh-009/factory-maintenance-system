@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import dashboardService from "../services/dashboardService";
 import "../styles/dashboard.css";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
   const [machineReport, setMachineReport] = useState(null);
   const [maintenanceReport, setMaintenanceReport] = useState(null);
   const [breakdownReport, setBreakdownReport] = useState(null);
   const [sparePartReport, setSparePartReport] = useState(null);
+const navigate = useNavigate();
+const { role } = useAuth();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -660,57 +664,75 @@ const Dashboard = () => {
     </div>
   </div>
 
-  <div className="quick-actions-grid">
+  
+{/* Quick Actions */}
+<div className="dashboard-section quick-actions-section">
+  <div className="quick-actions-header">
+    <div>
+      <h2>Quick Actions</h2>
+      <p>Frequently used maintenance operations</p>
+    </div>
+  </div>
 
+  <div className="quick-actions-grid">
     {/* Add Machine */}
-    <button className="quick-action-card">
-      <div className="quick-action-icon">
-        +
-      </div>
+    <button
+      type="button"
+      className="quick-action-card"
+      onClick={() => navigate("/machines")}
+    >
+      <div className="quick-action-icon">+</div>
 
       <div className="quick-action-content">
         <strong>Add Machine</strong>
-        <span>Register a new machine</span>
+        <span>Open machine management</span>
       </div>
     </button>
 
     {/* Schedule Maintenance */}
-    <button className="quick-action-card">
-      <div className="quick-action-icon">
-        +
-      </div>
+    <button
+      type="button"
+      className="quick-action-card"
+      onClick={() => navigate("/maintenance")}
+    >
+      <div className="quick-action-icon">+</div>
 
       <div className="quick-action-content">
         <strong>Schedule Maintenance</strong>
-        <span>Create a maintenance task</span>
+        <span>Open maintenance management</span>
       </div>
     </button>
 
     {/* Report Breakdown */}
-    <button className="quick-action-card">
-      <div className="quick-action-icon">
-        !
-      </div>
+    <button
+      type="button"
+      className="quick-action-card"
+      onClick={() => navigate("/breakdowns")}
+    >
+      <div className="quick-action-icon">!</div>
 
       <div className="quick-action-content">
         <strong>Report Breakdown</strong>
-        <span>Record a machine breakdown</span>
+        <span>Open breakdown management</span>
       </div>
     </button>
 
     {/* Manage Spare Parts */}
-    <button className="quick-action-card">
-      <div className="quick-action-icon">
-        +
-      </div>
+    <button
+      type="button"
+      className="quick-action-card"
+      onClick={() => navigate("/spare-parts")}
+    >
+      <div className="quick-action-icon">+</div>
 
       <div className="quick-action-content">
         <strong>Manage Spare Parts</strong>
-        <span>View and update inventory</span>
+        <span>Open spare parts inventory</span>
       </div>
     </button>
-
   </div>
+</div>
+
 
 </div>
 

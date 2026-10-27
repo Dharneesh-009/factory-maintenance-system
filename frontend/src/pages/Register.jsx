@@ -69,39 +69,39 @@ const Register = () => {
             <label>Name</label>
 
             <input
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(event) =>
-                setName(event.target.value)
-              }
-            />
+  type="text"
+  name="register-name"
+  autoComplete="off"
+  placeholder="Enter your name"
+  value={name}
+  onChange={(event) => setName(event.target.value)}
+/>
           </div>
 
           <div className="form-group">
             <label>Email</label>
 
             <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(event) =>
-                setEmail(event.target.value)
-              }
-            />
+  type="email"
+  name="register-email"
+  autoComplete="off"
+  placeholder="Enter your email"
+  value={email}
+  onChange={(event) => setEmail(event.target.value)}
+/>
           </div>
 
           <div className="form-group">
             <label>Password</label>
 
             <input
-              type="password"
-              placeholder="Create a password"
-              value={password}
-              onChange={(event) =>
-                setPassword(event.target.value)
-              }
-            />
+  type="password"
+  name="register-password"
+  autoComplete="new-password"
+  placeholder="Create a password"
+  value={password}
+  onChange={(event) => setPassword(event.target.value)}
+/>
           </div>
 
           {error && (

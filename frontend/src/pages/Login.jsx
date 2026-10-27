@@ -60,26 +60,26 @@ const Login = () => {
             <label>Email</label>
 
             <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(event) =>
-                setEmail(event.target.value)
-              }
-            />
+  type="email"
+  name="register-email"
+  autoComplete="off"
+  placeholder="Enter your email"
+  value={email}
+  onChange={(event) => setEmail(event.target.value)}
+/>
           </div>
 
           <div className="form-group">
             <label>Password</label>
 
             <input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(event) =>
-                setPassword(event.target.value)
-              }
-            />
+  type="password"
+  name="register-password"
+  autoComplete="new-password"
+  placeholder="Create a password"
+  value={password}
+  onChange={(event) => setPassword(event.target.value)}
+/>
           </div>
 
           {error && (
