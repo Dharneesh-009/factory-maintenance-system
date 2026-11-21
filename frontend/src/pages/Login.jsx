@@ -1,111 +1,124 @@
+
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import AuthLayout from "../components/auth/AuthLayout";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setError("");
 
-    if (!email || !password) {
-      setError("Please enter email and password.");
+    if (!email.trim() || !password) {
+      setError("Please enter your email and password.");
       return;
     }
 
     try {
       setLoading(true);
-
-      const data = await login(email, password);
-
-      console.log("Login successful:", data);
-
+      await login(email.trim(), password);
       navigate("/dashboard");
-
-    } catch (error) {
-      console.error(error);
-
-      if (error.response?.data?.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Invalid email or password.");
-      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+        "Unable to sign in. Please check your credentials."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-
-        <div className="auth-header">
-          <h1>Factory Maintenance System</h1>
-          <p>Maintenance Management Platform</p>
+    <AuthLayout
+      eyebrow="WELCOME BACK"
+      title="Sign in to your workspace."
+      subtitle="Your factory operations, all in one place."
+      footer={
+        <p>
+          New to the platform?{" "}
+          <Link className="auth-link" to="/register">
+            Create an account <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+      }
+    >
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <div className="form-field">
+          <label htmlFor="login-email">Work email</label>
+          <input
+            id="login-email"
+            type="email"
+            name="email"
+            autoComplete="username"
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={loading}
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
-
-          <div className="form-group">
-            <label>Email</label>
-
-            <input
-  type="email"
-  name="register-email"
-  autoComplete="off"
-  placeholder="Enter your email"
-  value={email}
-  onChange={(event) => setEmail(event.target.value)}
-/>
+        <div className="form-field">
+          <div className="field-heading">
+            <label htmlFor="login-password">Password</label>
           </div>
 
-          <div className="form-group">
-            <label>Password</label>
-
+          <div className="password-wrap">
             <input
-  type="password"
-  name="register-password"
-  autoComplete="new-password"
-  placeholder="Create a password"
-  value={password}
-  onChange={(event) => setPassword(event.target.value)}
-/>
+              id="login-password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              autoComplete="current-password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+            />
+            <button
+              className="password-toggle"
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-pressed={showPassword}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
           </div>
+        </div>
 
-          {error && (
-            <p className="error-message">
-              {error}
-            </p>
-          )}
+        {error && (
+          <div className="auth-message auth-error" role="alert">
+            <span aria-hidden="true">!</span>
+            {error}
+          </div>
+        )}
 
-          <button
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+        <button
+          className="auth-submit"
+          type="submit"
+          disabled={loading}
+        >
+          <span>{loading ? "Signing you in..." : "Sign in to workspace"}</span>
+          {!loading && <span aria-hidden="true">→</span>}
+          {loading && <span className="button-spinner" />}
+        </button>
 
-        </form>
-
-        <p className="register-link">
-          Don't have an account?{" "}
-          <span onClick={() => navigate("/register")}>
-            Register
-          </span>
+        <p className="form-security">
+          <span aria-hidden="true">◆</span>
+          Secure access to your maintenance workspace
         </p>
-
-      </div>
-    </div>
+      </form>
+    </AuthLayout>
   );
 };
 

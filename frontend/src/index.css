@@ -1,278 +1,171 @@
+/* =========================================================
+   FACTORY MAINTENANCE SYSTEM - GLOBAL DESIGN SYSTEM
+   Design tokens, base elements and shared form primitives.
+   Page-specific styles live in src/styles and are scoped to
+   their page root class.
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* ---------- Design tokens ---------- */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Brand and accents */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-soft: #eff6ff;
+  --color-primary-ring: rgba(37, 99, 235, 0.18);
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Navigation */
+  --color-navy: #13233a;
+  --color-navy-hover: rgba(255, 255, 255, 0.07);
+  --color-navy-border: rgba(255, 255, 255, 0.08);
+  --color-navy-text: #b8c6d8;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Surfaces */
+  --color-bg: #f3f5f8;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* Text */
+  --color-text: #334155;
+  --color-text-strong: #0f172a;
+  --color-text-muted: #64748b;
+
+  /* Status */
+  --color-success: #15803d;
+  --color-success-soft: #dcfce7;
+  --color-warning: #b45309;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #b91c1c;
+  --color-danger-soft: #fee2e2;
+  --color-info: #0369a1;
+  --color-info-soft: #e0f2fe;
+
+  /* Shape, elevation and layout */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --sidebar-width: 256px;
+  --header-height: 64px;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  min-height: 100vh;
 }
 
 h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--color-text-strong);
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
 p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: var(--color-text-strong);
 }
 
-/* ==========================================
-   AUTHENTICATION
-   ========================================== */
-
-.auth-page {
-  min-height: 100vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 30px;
-
-  background: #f4f6f8;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 430px;
-
-  background: #ffffff;
-
-  padding: 40px;
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.08);
-}
-
-.auth-header {
-  text-align: center;
-
-  margin-bottom: 30px;
-}
-
-.auth-header h1 {
-  font-size: 26px;
-
-  margin-bottom: 8px;
-
-  color: #17202a;
-}
-
-.auth-header p {
-  font-size: 14px;
-
-  color: #6b7280;
-}
-
+/* ---------- Shared form primitives (used by module pages) ---------- */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
   display: block;
-
-  margin-bottom: 8px;
-
+  margin-bottom: 6px;
   font-size: 14px;
-
   font-weight: 600;
-
-  color: #374151;
+  color: var(--color-text-strong);
 }
 
 .form-group input {
   width: 100%;
-
-  padding: 13px 15px;
-
-  border: 1px solid #d1d5db;
-
-  border-radius: 10px;
-
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
   outline: none;
-
-  transition: border-color 0.2s ease,
-              box-shadow 0.2s ease;
+  background: var(--color-surface);
+  color: var(--color-text-strong);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .form-group input:focus {
-  border-color: #d4a017;
-
-  box-shadow:
-    0 0 0 3px rgba(212, 160, 23, 0.12);
-}
-
-.auth-card button {
-  width: 100%;
-
-  padding: 13px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: #17202a;
-
-  color: white;
-
-  font-weight: 600;
-
-  transition: transform 0.2s ease,
-              opacity 0.2s ease;
-}
-
-.auth-card button:hover {
-  transform: translateY(-1px);
-}
-
-.auth-card button:disabled {
-  opacity: 0.6;
-
-  cursor: not-allowed;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-ring);
 }
 
 .error-message {
   margin-bottom: 15px;
-
-  padding: 10px;
-
-  border-radius: 8px;
-
-  background: #fee2e2;
-
-  color: #b91c1c;
-
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
   font-size: 14px;
 }
 
 .success-message {
   margin-bottom: 15px;
-
-  padding: 10px;
-
-  border-radius: 8px;
-
-  background: #dcfce7;
-
-  color: #166534;
-
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-success-soft);
+  color: var(--color-success);
   font-size: 14px;
-}
-
-.register-link {
-  margin-top: 22px;
-
-  text-align: center;
-
-  font-size: 14px;
-
-  color: #6b7280;
-}
-
-.register-link span {
-  color: #17202a;
-
-  font-weight: 600;
-
-  cursor: pointer;
-}
-
-.register-link span:hover {
-  text-decoration: underline;
 }

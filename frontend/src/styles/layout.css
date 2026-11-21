@@ -1,229 +1,301 @@
-/* =========================
-   MAIN LAYOUT
-========================= */
+/* =========================================================
+   APPLICATION SHELL: fixed sidebar, sticky header, content
+   ========================================================= */
 
-.main-layout {
+.app-layout {
   display: flex;
   min-height: 100vh;
-  background: #f5f7fa;
+  background: var(--color-bg);
 }
 
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar {
-  width: 250px;
-  min-height: 100vh;
-  background: #17212b;
-  color: white;
-
-  display: flex;
-  flex-direction: column;
-
+/* ---------- Sidebar ---------- */
+.app-sidebar {
   position: fixed;
-  left: 0;
   top: 0;
   bottom: 0;
-}
-
-
-/* =========================
-   SIDEBAR BRAND
-========================= */
-
-.sidebar-brand {
-  padding: 25px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.sidebar-brand h2 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.sidebar-brand span {
-  font-size: 13px;
-  opacity: 0.7;
-}
-
-
-/* =========================
-   SIDEBAR NAVIGATION
-========================= */
-
-.sidebar-nav {
+  left: 0;
+  z-index: 40;
   display: flex;
   flex-direction: column;
-  padding: 20px 12px;
-  gap: 6px;
+  width: var(--sidebar-width);
+  background: var(--color-navy);
+  color: #e2e8f0;
+  transition: transform 0.25s ease;
 }
 
-.sidebar-nav a {
-  color: #d9e1e8;
-  text-decoration: none;
-
-  padding: 13px 15px;
-
-  border-radius: 8px;
-
-  transition: 0.2s ease;
+.app-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--header-height);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--color-navy-border);
 }
 
-.sidebar-nav a:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
+.app-sidebar__logo {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: #ffffff;
 }
 
-.sidebar-nav a.active {
-  background: #2d7ff9;
-  color: white;
+.app-sidebar__brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-
-/* =========================
-   SIDEBAR BOTTOM
-========================= */
-
-.sidebar-bottom {
-  margin-top: auto;
-  padding: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.user-role {
-  font-size: 13px;
-  margin-bottom: 12px;
-  opacity: 0.8;
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-.logout-button {
-  width: 100%;
-
-  padding: 11px;
-
-  border: none;
-  border-radius: 8px;
-
-  background: #b83232;
-  color: white;
-
-  cursor: pointer;
-
+.app-sidebar__title {
   font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
 }
 
-.logout-button:hover {
-  opacity: 0.9;
+.app-sidebar__subtitle {
+  font-size: 12px;
+  color: #8ea1b9;
 }
 
+.app-sidebar__nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 12px;
+  overflow-y: auto;
+}
 
-/* =========================
-   MAIN SECTION
-========================= */
+.app-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  color: var(--color-navy-text);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
 
-.main-section {
-  margin-left: 250px;
-  width: calc(100% - 250px);
+.app-sidebar__link svg {
+  flex-shrink: 0;
+}
+
+.app-sidebar__link:hover {
+  background: var(--color-navy-hover);
+  color: #ffffff;
+}
+
+.app-sidebar__link.active {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.app-sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid var(--color-navy-border);
+}
+
+.app-sidebar__role {
+  font-size: 12px;
+  color: #8ea1b9;
+}
+
+.app-sidebar__role strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.app-sidebar__logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.app-sidebar__logout:hover {
+  background: var(--color-navy-hover);
+}
+
+/* ---------- Main column ---------- */
+.app-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
   min-height: 100vh;
+  margin-left: var(--sidebar-width);
 }
 
-
-/* =========================
-   HEADER
-========================= */
-
-.header {
-  height: 70px;
-
-  background: white;
-
+/* ---------- Sticky header ---------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding: 0 30px;
-
-  border-bottom: 1px solid #e5e7eb;
+  gap: 16px;
+  height: var(--header-height);
+  padding: 0 28px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.header-left h1 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.header-right {
+.app-header__left,
+.app-header__right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
+  min-width: 0;
 }
 
-.notification-icon {
-  font-size: 20px;
+.app-header__product {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-strong);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-header__menu,
+.app-header__icon-button {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text-strong);
   cursor: pointer;
+  text-decoration: none;
 }
 
-.user-info {
+.app-header__menu {
+  display: none;
+}
+
+.app-header__icon-button:hover,
+.app-header__menu:hover {
+  background: var(--color-surface-muted);
+}
+
+.app-header__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-header__avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.app-header__user-text {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  line-height: 1.2;
 }
 
-.user-info span {
+.app-header__user-text span {
   font-size: 11px;
-  color: #777;
+  color: var(--color-text-muted);
 }
 
-.user-info strong {
+.app-header__user-text strong {
   font-size: 14px;
+  color: var(--color-text-strong);
 }
 
-
-/* =========================
-   PAGE CONTENT
-========================= */
-
-.page-content {
-  padding: 30px;
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-.dashboard-page {
+/* ---------- Content ---------- */
+.app-content {
+  flex: 1;
   width: 100%;
+  min-width: 0;
+  padding: 28px;
 }
 
-.page-heading h1 {
-  margin: 0;
-  font-size: 28px;
+/* ---------- Mobile drawer overlay ---------- */
+.app-drawer-overlay {
+  display: none;
 }
 
-.page-heading p {
-  margin-top: 8px;
-  color: #666;
+/* ---------- Tablet and below: off-canvas sidebar ---------- */
+@media (max-width: 1024px) {
+  .app-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .app-sidebar.is-open {
+    transform: none;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .app-main {
+    margin-left: 0;
+  }
+
+  .app-header__menu {
+    display: inline-grid;
+  }
+
+  .app-drawer-overlay.is-open {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    display: block;
+    background: rgba(15, 23, 42, 0.45);
+  }
+
+  .app-content {
+    padding: 22px;
+  }
 }
 
-.dashboard-placeholder {
-  margin-top: 30px;
+/* ---------- Phones ---------- */
+@media (max-width: 640px) {
+  .app-header {
+    padding: 0 16px;
+  }
 
-  background: white;
+  .app-header__user-text {
+    display: none;
+  }
 
-  padding: 30px;
+  .app-header__product {
+    font-size: 14px;
+  }
 
-  border-radius: 12px;
-
-  border: 1px solid #e5e7eb;
-}
-
-.dashboard-placeholder h2 {
-  margin-top: 0;
+  .app-content {
+    padding: 16px;
+  }
 }

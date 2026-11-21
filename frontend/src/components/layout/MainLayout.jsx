@@ -1,24 +1,34 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 const MainLayout = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <div className="main-layout">
+    <div className="app-layout">
+      <Sidebar isOpen={menuOpen} onNavigate={closeMenu} />
 
-      <Sidebar />
+      <div
+        className={`app-drawer-overlay${menuOpen ? " is-open" : ""}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
 
-      <div className="main-section">
+      <div className="app-main">
+        <Header
+          isMenuOpen={menuOpen}
+          onMenuClick={() => setMenuOpen((open) => !open)}
+        />
 
-        <Header />
-
-        <main className="page-content">
+        <main className="app-content">
           <Outlet />
         </main>
-
       </div>
-
     </div>
   );
 };

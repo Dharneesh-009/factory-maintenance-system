@@ -1,66 +1,71 @@
 import { NavLink } from "react-router-dom";
+import {
+  Bell,
+  Factory,
+  LayoutDashboard,
+  LogOut,
+  Package,
+  TriangleAlert,
+  Wrench,
+} from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 
-const Sidebar = () => {
+export const NAV_ITEMS = [
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/machines", label: "Machines", icon: Factory },
+  { to: "/maintenance", label: "Maintenance", icon: Wrench },
+  { to: "/breakdowns", label: "Breakdowns", icon: TriangleAlert },
+  { to: "/spare-parts", label: "Spare Parts", icon: Package },
+  { to: "/notifications", label: "Notifications", icon: Bell },
+];
 
+const Sidebar = ({ isOpen = false, onNavigate }) => {
   const { role, logout } = useAuth();
 
-  const handleLogout = () => {
-    logout();
-  };
-
   return (
-    <aside className="sidebar">
-
-      <div className="sidebar-brand">
-        <h2>Factory</h2>
-        <span>Maintenance</span>
+    <aside
+      id="app-sidebar"
+      className={`app-sidebar${isOpen ? " is-open" : ""}`}
+      aria-label="Primary navigation"
+    >
+      <div className="app-sidebar__brand">
+        <span className="app-sidebar__logo" aria-hidden="true">
+          <Factory size={20} />
+        </span>
+        <div className="app-sidebar__brand-text">
+          <span className="app-sidebar__title">Factory Maintenance System</span>
+          <span className="app-sidebar__subtitle">Maintenance management</span>
+        </div>
       </div>
 
-      <nav className="sidebar-nav">
-
-        <NavLink to="/dashboard">
-          🏠 Dashboard
-        </NavLink>
-
-        <NavLink to="/machines">
-          🏭 Machines
-        </NavLink>
-
-        <NavLink to="/maintenance">
-          🔧 Maintenance
-        </NavLink>
-
-        <NavLink to="/breakdowns">
-          🚨 Breakdowns
-        </NavLink>
-
-        <NavLink to="/spare-parts">
-          📦 Spare Parts
-        </NavLink>
-
-        <NavLink to="/notifications">
-          🔔 Notifications
-        </NavLink>
-
+      <nav className="app-sidebar__nav">
+        {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className="app-sidebar__link"
+            onClick={onNavigate}
+          >
+            <Icon size={18} aria-hidden="true" />
+            <span>{label}</span>
+          </NavLink>
+        ))}
       </nav>
 
-      <div className="sidebar-bottom">
-
-        <div className="user-role">
-          Role: {role}
+      <div className="app-sidebar__footer">
+        <div className="app-sidebar__role">
+          Signed in as <strong>{role}</strong>
         </div>
 
         <button
           type="button"
-          onClick={handleLogout}
-          className="logout-button"
+          className="app-sidebar__logout"
+          onClick={() => logout()}
         >
-          🚪 Logout
+          <LogOut size={16} aria-hidden="true" />
+          <span>Logout</span>
         </button>
-
       </div>
-
     </aside>
   );
 };

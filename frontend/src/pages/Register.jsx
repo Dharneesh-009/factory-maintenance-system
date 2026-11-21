@@ -1,6 +1,8 @@
+
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/authService";
+import AuthLayout from "../components/auth/AuthLayout";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -8,20 +10,23 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setError("");
     setSuccess("");
 
-    if (!name || !email || !password) {
-      setError("Please fill in all fields.");
+    if (!name.trim() || !email.trim() || !password) {
+      setError("Please complete all fields.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Your password must contain at least 8 characters.");
       return;
     }
 
@@ -29,111 +34,135 @@ const Register = () => {
       setLoading(true);
 
       const message = await authService.register(
-        name,
-        email,
+        name.trim(),
+        email.trim(),
         password,
         "TECHNICIAN"
       );
 
-      setSuccess(message);
+      setSuccess(message || "Your account has been created.");
 
+      // Briefly show the success message before redirecting.
       setTimeout(() => {
-        navigate("/login");
-      }, 1500);
-
-    } catch (error) {
-      console.error(error);
-
-      if (error.response?.data?.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Registration failed.");
-      }
+        navigate("/login", { replace: true });
+      }, 1200);
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+        "Unable to create your account. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-
-        <div className="auth-header">
-          <h1>Create Account</h1>
-          <p>Factory Maintenance System</p>
+    <AuthLayout
+      eyebrow="GET STARTED"
+      title="Create your workspace account."
+      subtitle="Get your maintenance workflow organized from day one."
+      footer={
+        <p>
+          Already have an account?{" "}
+          <Link className="auth-link" to="/login">
+            Sign in <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+      }
+    >
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <div className="form-field">
+          <label htmlFor="register-name">Full name</label>
+          <input
+            id="register-name"
+            type="text"
+            name="name"
+            autoComplete="name"
+            placeholder="Enter your full name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            disabled={loading}
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
-
-          <div className="form-group">
-            <label>Name</label>
-
-            <input
-  type="text"
-  name="register-name"
-  autoComplete="off"
-  placeholder="Enter your name"
-  value={name}
-  onChange={(event) => setName(event.target.value)}
-/>
-          </div>
-
-          <div className="form-group">
-            <label>Email</label>
-
-            <input
-  type="email"
-  name="register-email"
-  autoComplete="off"
-  placeholder="Enter your email"
-  value={email}
-  onChange={(event) => setEmail(event.target.value)}
-/>
-          </div>
-
-          <div className="form-group">
-            <label>Password</label>
-
-            <input
-  type="password"
-  name="register-password"
-  autoComplete="new-password"
-  placeholder="Create a password"
-  value={password}
-  onChange={(event) => setPassword(event.target.value)}
-/>
-          </div>
-
-          {error && (
-            <p className="error-message">
-              {error}
-            </p>
-          )}
-
-          {success && (
-            <p className="success-message">
-              {success}
-            </p>
-          )}
-
-          <button
-            type="submit"
+        <div className="form-field">
+          <label htmlFor="register-email">Work email</label>
+          <input
+            id="register-email"
+            type="email"
+            name="email"
+            autoComplete="email"
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
             disabled={loading}
-          >
-            {loading ? "Creating account..." : "Register"}
-          </button>
+          />
+        </div>
 
-        </form>
+        <div className="form-field">
+          <label htmlFor="register-password">Create password</label>
+          <div className="password-wrap">
+            <input
+              id="register-password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              autoComplete="new-password"
+              placeholder="At least 8 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength={8}
+              required
+              disabled={loading}
+            />
+            <button
+              className="password-toggle"
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-pressed={showPassword}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+          <p className="field-hint">
+            Use at least 8 characters.
+          </p>
+        </div>
 
-        <p className="register-link">
-          Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>
-            Login
+        {error && (
+          <div className="auth-message auth-error" role="alert">
+            <span aria-hidden="true">!</span>
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="auth-message auth-success" role="status">
+            <span aria-hidden="true">✓</span>
+            {success}
+          </div>
+        )}
+
+        <button
+          className="auth-submit"
+          type="submit"
+          disabled={loading}
+        >
+          <span>
+            {loading ? "Creating your account..." : "Create account"}
           </span>
-        </p>
+          {!loading && <span aria-hidden="true">→</span>}
+          {loading && <span className="button-spinner" />}
+        </button>
 
-      </div>
-    </div>
+        <p className="form-security">
+          <span aria-hidden="true">◆</span>
+          Your account details are handled securely
+        </p>
+      </form>
+    </AuthLayout>
   );
 };
 

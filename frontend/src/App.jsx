@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
+import { ToastProvider } from "./components/feedback/ToastProvider";
+import { ConfirmProvider } from "./components/feedback/ConfirmProvider";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import MainLayout from "./components/layout/MainLayout";
@@ -24,7 +26,9 @@ import Home from "./pages/Home";
 const App = () => {
   return (
     <BrowserRouter>
-      <AuthProvider>
+      <ToastProvider>
+        <ConfirmProvider>
+          <AuthProvider>
         <Routes>
           {/* Public routes */}
           <Route
@@ -80,7 +84,9 @@ const App = () => {
   element={<Home />}
 />
         </Routes>
-      </AuthProvider>
+          </AuthProvider>
+        </ConfirmProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 };

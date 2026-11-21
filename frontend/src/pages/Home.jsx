@@ -1,340 +1,547 @@
-
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
+
+const features = [
+  {
+    icon: "⚙",
+    title: "Machine Management",
+    description:
+      "Track machine status, usage, maintenance schedules and performance.",
+    color: "blue",
+  },
+  {
+    icon: "🔧",
+    title: "Preventive Maintenance",
+    description:
+      "Schedule maintenance tasks, manage service requests and reduce breakdowns.",
+    color: "blue",
+  },
+  {
+    icon: "📈",
+    title: "Production Tracking",
+    description:
+      "Monitor production activity, track targets and improve operational efficiency.",
+    color: "green",
+  },
+  {
+    icon: "📦",
+    title: "Inventory Control",
+    description:
+      "Manage spare parts, stock levels and essential maintenance materials.",
+    color: "orange",
+  },
+  {
+    icon: "👥",
+    title: "Workforce Management",
+    description:
+      "Assign maintenance tasks and coordinate technicians and teams.",
+    color: "blue",
+  },
+  {
+    icon: "📊",
+    title: "Reports & Analytics",
+    description:
+      "Understand machine performance and make informed maintenance decisions.",
+    color: "blue",
+  },
+];
+
+const activities = [
+  {
+    icon: "✓",
+    title: "Maintenance completed",
+    subtitle: "Preventive service recorded",
+    color: "green",
+  },
+  {
+    icon: "⚙",
+    title: "Machine status updated",
+    subtitle: "Production line monitoring",
+    color: "blue",
+  },
+  {
+    icon: "!",
+    title: "Maintenance attention",
+    subtitle: "Review pending work orders",
+    color: "orange",
+  },
+];
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const features = [
-    {
-      icon: "⚙️",
-      title: "Machine Management",
-      description:
-        "Monitor machine status, model details, locations, and operational conditions.",
-    },
-    {
-      icon: "🛠️",
-      title: "Maintenance Management",
-      description:
-        "Manage maintenance schedules, assigned technicians, and maintenance status.",
-    },
-    {
-      icon: "🚨",
-      title: "Breakdown Tracking",
-      description:
-        "Record breakdowns, track priorities, and follow repair progress.",
-    },
-    {
-      icon: "📦",
-      title: "Spare Parts Management",
-      description:
-        "Keep track of spare parts and access inventory information.",
-    },
-    {
-      icon: "📊",
-      title: "Reports & Analytics",
-      description:
-        "View maintenance, machine, breakdown, and spare parts reports.",
-    },
-    {
-      icon: "🔐",
-      title: "Role-Based Access",
-      description:
-        "Provide separate permissions for administrators and technicians.",
-    },
-  ];
+  const goToLogin = () => navigate("/login");
+  const goToRegister = () => navigate("/register");
 
   return (
-    <div className="home-page">
-      <header className="home-navbar">
-        <a
-          href="#home"
-          className="home-brand"
-          onClick={(event) => {
-            event.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-        >
-          <span className="brand-icon">⚙</span>
-          <span>Factory<span className="brand-highlight">Care</span></span>
-        </a>
-
-        <nav className="home-nav-links">
-          <a href="#home">Home</a>
-          <a href="#features">Features</a>
-          <a href="#about">About</a>
-        </nav>
-
-        <div className="home-nav-actions">
+    <main className="factory-home">
+      {/* Navigation */}
+      <header className="ff-header">
+        <nav className="ff-nav ff-container" aria-label="Main navigation">
           <button
-            className="home-login-btn"
-            onClick={() => navigate("/login")}
+            className="ff-brand"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Factory Maintenance System home"
           >
-            Login
+            <span className="ff-brand-icon">⚙</span>
+            <span>Factory Maintenance System</span>
           </button>
 
-          <button
-            className="home-register-btn"
-            onClick={() => navigate("/register")}
-          >
-            Get Started
-          </button>
-        </div>
-      </header>
-
-      <main>
-        <section className="home-hero" id="home">
-          <div className="hero-content">
-            <p className="hero-eyebrow">
-              SMARTER MAINTENANCE. BETTER PERFORMANCE.
-            </p>
-
-            <h1>
-              Keep Your Factory
-              <br />
-              Running <span>Smarter.</span>
-            </h1>
-
-            <p className="hero-description">
-              Manage machines, maintenance activities, breakdowns,
-              and spare parts in one convenient platform.
-              Make factory maintenance simpler, more organized,
-              and easier to monitor.
-            </p>
-
-            <div className="hero-benefits">
-              <div>
-                <span>⚙️</span>
-                <p>Machine Monitoring</p>
-              </div>
-
-              <div>
-                <span>🛠️</span>
-                <p>Maintenance Tracking</p>
-              </div>
-
-              <div>
-                <span>📈</span>
-                <p>Better Visibility</p>
-              </div>
-            </div>
-
-            <div className="hero-actions">
-              <button
-                className="hero-primary-btn"
-                onClick={() => navigate("/register")}
-              >
-                Get Started Free <span>→</span>
-              </button>
-
-              <button
-                className="hero-secondary-btn"
-                onClick={() => navigate("/login")}
-              >
-                Login to Dashboard
-              </button>
-            </div>
-
-            <p className="hero-note">
-              One platform. Better maintenance. Smarter decisions.
-            </p>
+          <div className="ff-nav-links">
+            <a className="active" href="#home">
+              Home
+            </a>
+            <a href="#features">Features</a>
+            <a href="#benefits">Benefits</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
           </div>
 
-          <div className="hero-visual">
-            <div className="visual-glow"></div>
+          <div className="ff-nav-actions">
+            <button className="ff-button ff-button-outline ff-login" onClick={goToLogin}>
+              Login
+            </button>
+            <button className="ff-button ff-button-primary ff-nav-cta" onClick={goToRegister}>
+              Get Started Free
+            </button>
+          </div>
+        </nav>
+      </header>
 
-            <div className="factory-panel">
-              <div className="panel-topbar">
-                <span className="panel-logo">⚙ FactoryCare</span>
-                <span className="panel-status">
-                  <span></span> System Overview
+      {/* Hero */}
+      <section className="ff-hero" id="home">
+        <div className="ff-hero-overlay" />
+
+        <div className="ff-container ff-hero-content">
+          <div className="ff-hero-copy">
+            <span className="ff-eyebrow">
+              SMARTER FACTORIES. HIGHER PRODUCTIVITY.
+            </span>
+
+            <h1>
+              Complete Factory Management,{" "}
+              <span>All in One</span>
+            </h1>
+
+            <p className="ff-hero-description">
+              Simplify machine maintenance, manage your workforce and monitor
+              factory operations through one powerful, easy-to-use platform
+              built for modern manufacturing.
+            </p>
+
+            <div className="ff-hero-highlights">
+              <div className="ff-highlight">
+                <span className="ff-highlight-icon">▣</span>
+                <span>
+                  Real-time
+                  <br />
+                  Monitoring
                 </span>
               </div>
 
-              <div className="panel-heading">
-                <div>
-                  <p>FACTORY OVERVIEW</p>
-                  <h2>Maintenance at a glance</h2>
-                </div>
-                <span className="panel-heading-icon">⌘</span>
+              <div className="ff-highlight">
+                <span className="ff-highlight-icon">◷</span>
+                <span>
+                  Reduce
+                  <br />
+                  Downtime
+                </span>
               </div>
 
-              <div className="panel-stats">
-                <div className="panel-stat">
-                  <span>⚙️</span>
-                  <p>Total Machines</p>
-                  <strong>Machines</strong>
-                </div>
-
-                <div className="panel-stat">
-                  <span>🟢</span>
-                  <p>Machine Status</p>
-                  <strong>Monitoring</strong>
-                </div>
-
-                <div className="panel-stat">
-                  <span>🛠️</span>
-                  <p>Maintenance</p>
-                  <strong>Tracking</strong>
-                </div>
-
-                <div className="panel-stat">
-                  <span>🚨</span>
-                  <p>Breakdowns</p>
-                  <strong>Management</strong>
-                </div>
-              </div>
-
-              <div className="panel-lower">
-                <div className="panel-chart">
-                  <p>Maintenance Workflow</p>
-
-                  <div className="workflow-step">
-                    <span>01</span>
-                    <div>
-                      <strong>Monitor Machines</strong>
-                      <small>View operational status</small>
-                    </div>
-                    <span className="workflow-check">✓</span>
-                  </div>
-
-                  <div className="workflow-step">
-                    <span>02</span>
-                    <div>
-                      <strong>Track Maintenance</strong>
-                      <small>Manage maintenance activities</small>
-                    </div>
-                    <span className="workflow-check">✓</span>
-                  </div>
-
-                  <div className="workflow-step">
-                    <span>03</span>
-                    <div>
-                      <strong>Resolve Breakdowns</strong>
-                      <small>Follow repair progress</small>
-                    </div>
-                    <span className="workflow-arrow">↗</span>
-                  </div>
-                </div>
-
-                <div className="panel-side-card">
-                  <span className="side-card-icon">📊</span>
-                  <h3>Clear Insights</h3>
-                  <p>
-                    Access reports and keep maintenance
-                    information organized.
-                  </p>
-                  <div className="mini-bars">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="panel-footer">
-                <span>FACTORY MAINTENANCE SYSTEM</span>
-                <span>Organized · Secure · Reliable</span>
+              <div className="ff-highlight">
+                <span className="ff-highlight-icon">↗</span>
+                <span>
+                  Improve
+                  <br />
+                  Productivity
+                </span>
               </div>
             </div>
 
-            <div className="floating-badge">
-              <span>✓</span>
-              <div>
-                <strong>Everything Organized</strong>
-                <small>One maintenance platform</small>
-              </div>
-            </div>
-          </div>
-        </section>
+            <div className="ff-hero-actions">
+              <button className="ff-button ff-button-primary ff-hero-cta" onClick={goToRegister}>
+                Get Started Free <span>→</span>
+              </button>
 
-        <section className="home-features" id="features">
-          <div className="section-heading">
-            <p className="section-eyebrow">WHAT YOU CAN DO</p>
-            <h2>Everything You Need to Manage Your Factory</h2>
-            <p>
-              Essential tools to manage your machines, maintenance
-              activities, breakdowns, and operational records.
+              <a className="ff-button ff-button-video" href="#features">
+                <span className="ff-play-icon">▶</span>
+                Explore Features
+              </a>
+            </div>
+
+            <p className="ff-hero-note">
+              <span>✓</span> Built for efficient factory operations
             </p>
           </div>
 
-          <div className="feature-grid">
+          {/* Dashboard preview */}
+          <div className="ff-hero-visual" aria-label="Factory dashboard preview">
+            <div className="ff-dashboard">
+              <aside className="ff-dashboard-sidebar">
+                <div className="ff-dashboard-brand">
+                  <span>⚙</span> Factory Maintenance System
+                </div>
+
+                {[
+                  ["▦", "Dashboard"],
+                  ["⚙", "Machines"],
+                  ["🔧", "Maintenance"],
+                  ["▥", "Production"],
+                  ["▣", "Inventory"],
+                  ["▤", "Reports"],
+                  ["♙", "Users"],
+                  ["⚙", "Settings"],
+                ].map(([icon, label], index) => (
+                  <div
+                    className={`ff-sidebar-item ${index === 0 ? "selected" : ""}`}
+                    key={label}
+                  >
+                    <span>{icon}</span> {label}
+                  </div>
+                ))}
+              </aside>
+
+              <div className="ff-dashboard-main">
+                <div className="ff-dashboard-topbar">
+                  <div>
+                    <span className="ff-dashboard-greeting">
+                      Good Morning, Admin 👋
+                    </span>
+                    <span className="ff-dashboard-subtitle">
+                      Here's an overview of your factory operations.
+                    </span>
+                  </div>
+                  <span className="ff-admin-pill">Admin ▾</span>
+                </div>
+
+                <div className="ff-stat-grid">
+                  <div className="ff-stat-card">
+                    <span className="ff-stat-icon stat-blue">⚙</span>
+                    <span className="ff-stat-label">Total Machines</span>
+                    <strong>12</strong>
+                    <small>Registered machines</small>
+                  </div>
+
+                  <div className="ff-stat-card">
+                    <span className="ff-stat-icon stat-green">✓</span>
+                    <span className="ff-stat-label">Running</span>
+                    <strong>09</strong>
+                    <small>Currently operational</small>
+                  </div>
+
+                  <div className="ff-stat-card">
+                    <span className="ff-stat-icon stat-orange">◷</span>
+                    <span className="ff-stat-label">Maintenance</span>
+                    <strong>02</strong>
+                    <small>Service required</small>
+                  </div>
+
+                  <div className="ff-stat-card">
+                    <span className="ff-stat-icon stat-red">!</span>
+                    <span className="ff-stat-label">Stopped</span>
+                    <strong>01</strong>
+                    <small>Needs attention</small>
+                  </div>
+                </div>
+
+                <div className="ff-dashboard-bottom">
+                  <div className="ff-chart-card">
+                    <div className="ff-card-heading">
+                      <div>
+                        <strong>Production Overview</strong>
+                        <span>Operational performance</span>
+                      </div>
+                      <span className="ff-period">This week ▾</span>
+                    </div>
+
+                    <div className="ff-chart">
+                      <div className="ff-chart-labels">
+                        <span>100%</span>
+                        <span>75%</span>
+                        <span>50%</span>
+                        <span>25%</span>
+                        <span>0%</span>
+                      </div>
+
+                      <svg
+                        className="ff-chart-svg"
+                        viewBox="0 0 340 160"
+                        role="img"
+                        aria-label="Illustrative production trend chart"
+                      >
+                        <defs>
+                          <linearGradient id="ffChartFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#3185ff" stopOpacity=".24" />
+                            <stop offset="100%" stopColor="#3185ff" stopOpacity=".01" />
+                          </linearGradient>
+                        </defs>
+
+                        {[20, 50, 80, 110, 140].map((y) => (
+                          <line
+                            key={y}
+                            x1="12"
+                            y1={y}
+                            x2="330"
+                            y2={y}
+                            stroke="#e8edf5"
+                            strokeDasharray="4 4"
+                          />
+                        ))}
+
+                        <path
+                          d="M12 130 L52 100 L88 55 L126 72 L165 82 L205 48 L245 58 L285 35 L330 42 L330 145 L12 145 Z"
+                          fill="url(#ffChartFill)"
+                        />
+
+                        <path
+                          d="M12 130 L52 100 L88 55 L126 72 L165 82 L205 48 L245 58 L285 35 L330 42"
+                          fill="none"
+                          stroke="#287bff"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+
+                        {[
+                          [12, 130],
+                          [88, 55],
+                          [165, 82],
+                          [205, 48],
+                          [285, 35],
+                          [330, 42],
+                        ].map(([cx, cy]) => (
+                          <circle
+                            key={`${cx}-${cy}`}
+                            cx={cx}
+                            cy={cy}
+                            r="4"
+                            fill="#fff"
+                            stroke="#287bff"
+                            strokeWidth="2"
+                          />
+                        ))}
+                      </svg>
+                    </div>
+
+                    <div className="ff-chart-days">
+                      <span>Mon</span>
+                      <span>Tue</span>
+                      <span>Wed</span>
+                      <span>Thu</span>
+                      <span>Fri</span>
+                      <span>Sat</span>
+                      <span>Sun</span>
+                    </div>
+                  </div>
+
+                  <div className="ff-activity-card">
+                    <strong className="ff-activity-title">Recent Activity</strong>
+
+                    {activities.map((activity) => (
+                      <div className="ff-activity" key={activity.title}>
+                        <span className={`ff-activity-icon ${activity.color}`}>
+                          {activity.icon}
+                        </span>
+                        <div>
+                          <strong>{activity.title}</strong>
+                          <span>{activity.subtitle}</span>
+                        </div>
+                      </div>
+                    ))}
+
+                    <a href="#features" className="ff-view-all">
+                      Explore capabilities →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="ff-floating-status">
+              <span className="ff-floating-check">✓</span>
+              <div>
+                <strong>Maintenance made simpler</strong>
+                <span>Everything in one place</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="ff-hero-bottom-line" />
+      </section>
+
+      {/* Features */}
+      <section className="ff-features-section" id="features">
+        <div className="ff-container">
+          <div className="ff-section-heading">
+            <span className="ff-section-eyebrow">KEY FEATURES</span>
+            <h2>Everything You Need to Run a Smarter Factory</h2>
+            <p>
+              From machine maintenance to daily operations, manage your
+              essential factory workflows in one connected platform.
+            </p>
+          </div>
+
+          <div className="ff-feature-grid">
             {features.map((feature) => (
-              <article className="feature-card" key={feature.title}>
-                <div className="feature-icon">{feature.icon}</div>
+              <article className="ff-feature-card" key={feature.title}>
+                <div className={`ff-feature-icon ${feature.color}`}>
+                  {feature.icon}
+                </div>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
-                <span className="feature-arrow">↗</span>
+                <a href="#contact" aria-label={`Learn more about ${feature.title}`}>
+                  Learn more <span>→</span>
+                </a>
               </article>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="home-about" id="about">
-          <div className="about-content">
-            <p className="section-eyebrow">BUILT FOR FACTORY OPERATIONS</p>
-            <h2>Make Maintenance Easier to Manage.</h2>
+      {/* About and benefits */}
+      <section className="ff-about-section" id="about">
+        <div className="ff-container ff-about-grid">
+          <div className="ff-about-copy">
+            <span className="ff-section-eyebrow">WHY FACTORYFLOW</span>
+            <h2>
+              Built for Manufacturers, by People Who Understand Manufacturing
+            </h2>
+
             <p>
-              FactoryCare brings important maintenance information
-              together, helping administrators and technicians
-              manage their work through a centralized system.
+              Bring maintenance, machines, technicians and operational
+              information together with a practical system designed to help
+              your team work with greater clarity and control.
             </p>
 
-            <ul>
-              <li>✓ Centralized machine information</li>
-              <li>✓ Organized maintenance records</li>
-              <li>✓ Breakdown priority and status tracking</li>
-              <li>✓ Role-based access and permissions</li>
+            <ul className="ff-benefit-list">
+              <li>
+                <span>✓</span> Easy-to-use management experience
+              </li>
+              <li>
+                <span>✓</span> Clear machine and maintenance visibility
+              </li>
+              <li>
+                <span>✓</span> Organized tasks and service records
+              </li>
+              <li>
+                <span>✓</span> A foundation that can grow with your business
+              </li>
             </ul>
+
+            <button className="ff-button ff-button-primary ff-about-button" onClick={goToRegister}>
+              Discover Factory Maintenance System <span>→</span>
+            </button>
           </div>
 
-          <div className="about-highlight">
-            <span className="about-gear">⚙</span>
-            <p>SMARTER WORKFLOWS</p>
-            <h3>Monitor. Maintain. Improve.</h3>
-            <div className="about-line"></div>
-            <p>
-              Bring your factory maintenance activities
-              into one organized workspace.
+          <div className="ff-operations-visual">
+            <div className="ff-operations-image">
+              <div className="ff-operations-image-overlay" />
+              <div className="ff-operations-label">
+                <span className="ff-operations-label-icon">✓</span>
+                <div>
+                  <strong>Operations at a glance</strong>
+                  <span>Make informed decisions</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ff-mini-report">
+              <div className="ff-mini-report-top">
+                <span>Maintenance overview</span>
+                <span className="ff-mini-dot" />
+              </div>
+              <strong>Stay organized.</strong>
+              <p>Keep track of machines, work orders and upcoming service.</p>
+              <div className="ff-mini-bars" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          </div>
+
+          <aside className="ff-benefits-panel" id="benefits">
+            <h3>Designed for Better Operations</h3>
+            <p className="ff-benefits-intro">
+              The tools your team needs to stay on top of factory work.
             </p>
-          </div>
-        </section>
 
-        <section className="home-cta">
+            <div className="ff-benefit-stat">
+              <span className="ff-benefit-stat-icon stat-blue">▦</span>
+              <div>
+                <strong>Machine visibility</strong>
+                <span>Understand machine status</span>
+              </div>
+            </div>
+
+            <div className="ff-benefit-stat">
+              <span className="ff-benefit-stat-icon stat-green">✓</span>
+              <div>
+                <strong>Organized maintenance</strong>
+                <span>Keep service tasks on track</span>
+              </div>
+            </div>
+
+            <div className="ff-benefit-stat">
+              <span className="ff-benefit-stat-icon stat-green">↗</span>
+              <div>
+                <strong>Clearer workflows</strong>
+                <span>Coordinate work across your team</span>
+              </div>
+            </div>
+
+            <div className="ff-benefit-stat">
+              <span className="ff-benefit-stat-icon stat-orange">◷</span>
+              <div>
+                <strong>Actionable information</strong>
+                <span>Make decisions with better context</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="ff-cta-section" id="contact">
+        <div className="ff-cta-decoration ff-cta-decoration-one" />
+        <div className="ff-cta-decoration ff-cta-decoration-two" />
+
+        <div className="ff-container ff-cta-content">
           <div>
-            <p className="section-eyebrow">READY TO GET STARTED?</p>
-            <h2>Take Control of Your Maintenance Today</h2>
+            <span className="ff-cta-eyebrow">READY TO TRANSFORM YOUR FACTORY?</span>
+            <h2>Take Control of Your Operations Today</h2>
             <p>
-              Sign in to manage your factory or create an account
-              to get started.
+              Bring your factory workflows together and build a more organized,
+              efficient maintenance process.
             </p>
           </div>
 
-          <button
-            className="hero-primary-btn"
-            onClick={() => navigate("/login")}
-          >
-            Enter Your System <span>→</span>
-          </button>
-        </section>
-      </main>
+          <div className="ff-cta-actions">
+            <button className="ff-button ff-button-primary ff-cta-button" onClick={goToRegister}>
+              Get Started Free <span>→</span>
+            </button>
+            <button className="ff-cta-login" onClick={goToLogin}>
+              Already have an account? <span>Login</span>
+            </button>
+          </div>
+        </div>
 
-      <footer className="home-footer">
-        <a href="#home" className="home-brand">
-          <span className="brand-icon">⚙</span>
-          <span>Factory<span className="brand-highlight">Care</span></span>
-        </a>
-
-        <p>Factory Maintenance System · Built for smarter operations.</p>
-
-        <button onClick={() => navigate("/login")}>
-          Login →
-        </button>
-      </footer>
-    </div>
+        <footer className="ff-footer">
+          <div className="ff-container ff-footer-inner">
+            <span className="ff-footer-brand">
+              <span>⚙</span> Factory Maintenance System
+            </span>
+            <p>Factory management, made clearer.</p>
+            <span>© {new Date().getFullYear()} Factory Maintenance System</span>
+          </div>
+        </footer>
+      </section>
+    </main>
   );
 };
 

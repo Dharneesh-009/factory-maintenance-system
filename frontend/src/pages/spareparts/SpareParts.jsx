@@ -1,3 +1,4 @@
+import { useConfirm } from "../../components/feedback/ConfirmProvider";
 
 import { useEffect, useState } from "react";
 import sparePartService from "../../services/sparepartService";
@@ -13,6 +14,8 @@ const emptyForm = {
 };
 
 const SpareParts = () => {
+  const confirmAction = useConfirm();
+
   const { role } = useAuthContext();
 
   const [spareParts, setSpareParts] = useState([]);
@@ -204,9 +207,11 @@ setError("");
   const handleDelete = async (part) => {
     if (!isAdmin) return;
 
-    const confirmed = window.confirm(
-      `Delete spare part "${part.name}" (${part.partNumber})?`
-    );
+    const confirmed = await confirmAction({
+      title: "Delete spare part",
+      message: `Delete spare part "${part.name}" (${part.partNumber})?`,
+      confirmLabel: "Delete",
+    });
 
     if (!confirmed) return;
 

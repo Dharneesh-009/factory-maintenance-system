@@ -1,9 +1,12 @@
+import { useConfirm } from "../../components/feedback/ConfirmProvider";
 
 import { useCallback, useEffect, useState } from "react";
 import notificationService from "../../services/notificationService";
 import "../../styles/notifications.css";
 
 const Notifications = () => {
+  const confirmAction = useConfirm();
+
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -73,9 +76,11 @@ const Notifications = () => {
 const handleDelete = async (id) => {
   console.log("DELETE HANDLER STARTED:", id);
 
-  const confirmed = window.confirm(
-    "Are you sure you want to delete this notification?"
-  );
+  const confirmed = await confirmAction({
+      title: "Delete notification",
+      message: "Are you sure you want to delete this notification?",
+      confirmLabel: "Delete",
+    });
 
   if (!confirmed) return;
 

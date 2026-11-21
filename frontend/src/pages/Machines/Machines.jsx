@@ -1,9 +1,12 @@
+import { useConfirm } from "../../components/feedback/ConfirmProvider";
 import { useEffect, useState } from "react";
 import machineService from "../../services/machineService";
 import { useAuthContext } from "../../context/AuthContext";
 import "../../styles/machines.css";
 
 const Machines = () => {
+  const confirmAction = useConfirm();
+
   const { role } = useAuthContext();
 
   console.log("CURRENT USER ROLE:", role);
@@ -249,9 +252,11 @@ const handleEditMachine = async (id) => {
 
 
 const handleDeleteMachine = async (id) => {
-  const confirmed = window.confirm(
-    "Are you sure you want to delete this machine?"
-  );
+  const confirmed = await confirmAction({
+      title: "Delete machine",
+      message: "Are you sure you want to delete this machine?",
+      confirmLabel: "Delete",
+    });
 
   if (!confirmed) {
     return;

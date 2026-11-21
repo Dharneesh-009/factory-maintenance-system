@@ -1,3 +1,5 @@
+import { useToast } from "../../components/feedback/ToastProvider";
+import { useConfirm } from "../../components/feedback/ConfirmProvider";
 
 import { useEffect, useState } from "react";
 import maintenanceService from "../../services/maintenanceService";
@@ -14,6 +16,9 @@ const initialFormData = {
 };
 
 const Maintenance = () => {
+  const toast = useToast();
+  const confirmAction = useConfirm();
+
   const { role } = useAuthContext();
   const isAdmin = String(role || "")
     .replace("ROLE_", "")
@@ -189,7 +194,7 @@ await loadMaintenance();
 setFormData(initialFormData);
 setShowAddModal(false);
 
-window.alert("Maintenance record created successfully!");
+toast.success("Maintenance record created successfully!");
     } catch (err) {
       console.error("CREATE MAINTENANCE ERROR:", err);
 
@@ -246,7 +251,7 @@ window.alert("Maintenance record created successfully!");
       setEditingMaintenance(null);
       setEditFormData(initialFormData);
 
-      window.alert("Maintenance record updated successfully!");
+      toast.success("Maintenance record updated successfully!");
     } catch (err) {
       console.error("UPDATE MAINTENANCE ERROR:", err);
 
@@ -292,7 +297,7 @@ window.alert("Maintenance record created successfully!");
         setSelectedMaintenance(updatedDetails);
       }
 
-      window.alert("Maintenance status updated successfully!");
+      toast.success("Maintenance status updated successfully!");
     } catch (err) {
       console.error("UPDATE MAINTENANCE STATUS ERROR:", err);
 
@@ -309,11 +314,13 @@ window.alert("Maintenance record created successfully!");
 
  // Delete a maintenance record (ADMIN only)
 const handleDeleteMaintenance = async (maintenance) => {
-  const confirmed = window.confirm(
-    `Are you sure you want to delete the maintenance record for ${
+  const confirmed = await confirmAction({
+      title: "Delete maintenance record",
+      message: `Are you sure you want to delete the maintenance record for ${
       maintenance.machineName || "this machine"
-    }?`
-  );
+    }?`,
+      confirmLabel: "Delete",
+    });
 
   if (!confirmed) {
     return;
@@ -324,11 +331,11 @@ const handleDeleteMaintenance = async (maintenance) => {
 
     await loadMaintenance();
 
-    window.alert("Maintenance record deleted successfully!");
+    toast.success("Maintenance record deleted successfully!");
   } catch (err) {
     console.error("DELETE MAINTENANCE ERROR:", err);
 
-    window.alert(
+    toast.error(
       err.response?.data?.message ||
         err.response?.data?.error ||
         "Failed to delete maintenance record. Please try again."

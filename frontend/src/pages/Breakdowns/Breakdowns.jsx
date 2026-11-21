@@ -1,3 +1,5 @@
+import { useToast } from "../../components/feedback/ToastProvider";
+import { useConfirm } from "../../components/feedback/ConfirmProvider";
 
 import { useEffect, useState } from "react";
 import breakdownService from "../../services/breakdownService";
@@ -16,6 +18,9 @@ const initialFormData = {
 };
 
 const Breakdowns = () => {
+  const toast = useToast();
+  const confirmAction = useConfirm();
+
   const [breakdowns, setBreakdowns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -261,7 +266,7 @@ const handleOpenViewModal = async (breakdown) => {
       setShowAddModal(false);
       setFormData(initialFormData);
 
-      window.alert("Breakdown reported successfully!");
+      toast.success("Breakdown reported successfully!");
     } catch (err) {
       console.error("CREATE BREAKDOWN ERROR:", err);
 
@@ -315,7 +320,7 @@ const handleOpenViewModal = async (breakdown) => {
       setEditingBreakdown(null);
       setEditFormData(initialFormData);
 
-      window.alert("Breakdown updated successfully!");
+      toast.success("Breakdown updated successfully!");
     } catch (err) {
       console.error("UPDATE BREAKDOWN ERROR:", err);
 
@@ -343,13 +348,15 @@ const handleOpenViewModal = async (breakdown) => {
   // Delete a breakdown record (ADMIN only)
   const handleDeleteBreakdown = async (breakdown) => {
     if (!isAdmin) {
-      window.alert("Only ADMIN can delete breakdown records.");
+      toast.error("Only ADMIN can delete breakdown records.");
       return;
     }
 
-    const confirmed = window.confirm(
-      `Are you sure you want to delete breakdown #${breakdown.id}?`
-    );
+    const confirmed = await confirmAction({
+      title: "Delete breakdown",
+      message: `Are you sure you want to delete breakdown #${breakdown.id}?`,
+      confirmLabel: "Delete",
+    });
 
     if (!confirmed) {
       return;
@@ -360,11 +367,11 @@ const handleOpenViewModal = async (breakdown) => {
 
       await loadBreakdowns();
 
-      window.alert("Breakdown deleted successfully!");
+      toast.success("Breakdown deleted successfully!");
     } catch (err) {
       console.error("DELETE BREAKDOWN ERROR:", err);
 
-      window.alert(
+      toast.error(
         err.response?.data?.message ||
           err.response?.data?.error ||
           "Failed to delete breakdown. Please try again."

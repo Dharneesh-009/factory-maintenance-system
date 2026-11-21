@@ -1,75 +1,94 @@
-/* =========================================
-   MACHINES PAGE
-========================================= */
+/* =========================================================
+   MACHINES PAGE - scoped to .machines-page
+   Light content surfaces, blue primary actions, status badges.
+   Uses the global design tokens from src/index.css.
+   ========================================================= */
 
 .machines-page {
+  --mc-primary: var(--color-primary, #2563eb);
+  --mc-primary-hover: var(--color-primary-hover, #1d4ed8);
+  --mc-primary-soft: var(--color-primary-soft, #eff6ff);
+  --mc-primary-ring: var(--color-primary-ring, rgba(37, 99, 235, 0.18));
+  --mc-surface: var(--color-surface, #ffffff);
+  --mc-surface-muted: var(--color-surface-muted, #f8fafc);
+  --mc-border: var(--color-border, #e2e8f0);
+  --mc-border-strong: var(--color-border-strong, #cbd5e1);
+  --mc-text: var(--color-text, #334155);
+  --mc-heading: var(--color-text-strong, #0f172a);
+  --mc-muted: var(--color-text-muted, #64748b);
+  --mc-success: var(--color-success, #15803d);
+  --mc-success-bg: var(--color-success-soft, #dcfce7);
+  --mc-warning: var(--color-warning, #b45309);
+  --mc-warning-bg: var(--color-warning-soft, #fef3c7);
+  --mc-danger: var(--color-danger, #b91c1c);
+  --mc-danger-bg: var(--color-danger-soft, #fee2e2);
+
   width: 100%;
   min-height: 100%;
-  color: #e7e9ec;
+  color: var(--mc-text);
 }
 
-
-/* =========================================
-   PAGE HEADING
-========================================= */
-
-.machines-heading {
+/* ---------- Page heading ---------- */
+.machines-page .machines-heading {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 30px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.machines-heading h1 {
+.machines-page .machines-heading h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--mc-heading);
+}
+
+.machines-page .machines-heading p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--mc-muted);
+}
+
+.machines-page .add-machine-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--mc-primary);
+  color: #ffffff;
+  font-size: 14px;
   font-weight: 600;
-  color: #e7e9ec;
-}
-
-.machines-heading p {
-  margin: 7px 0 0;
-  font-size: 13px;
-  color: #8d949c;
-}
-
-
-/* =========================================
-   ADD MACHINE BUTTON
-========================================= */
-
-.add-machine-btn {
-  padding: 10px 17px;
-  border: 1px solid rgba(111, 146, 123, 0.3);
-  border-radius: 7px;
-  background: rgba(111, 146, 123, 0.1);
-  color: #9aae9f;
-  font-size: 13px;
-  font-weight: 500;
+  white-space: nowrap;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.add-machine-btn:hover {
-  background: rgba(111, 146, 123, 0.16);
-  border-color: rgba(111, 146, 123, 0.45);
+.machines-page .add-machine-btn:hover {
+  background: var(--mc-primary-hover);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
+.machines-page .add-machine-btn:focus-visible {
+  outline: 2px solid var(--mc-primary);
+  outline-offset: 2px;
+}
 
-/* =========================================
-   MACHINE CONTENT
-========================================= */
-
-.machines-content {
+/* ---------- Content card ---------- */
+.machines-page .machines-content {
   width: 100%;
   min-height: 300px;
-  padding: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 10px;
-  background: #1c2125;
+  padding: 22px;
+  border: 1px solid var(--mc-border);
+  border-radius: 14px;
+  background: var(--mc-surface);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(15, 23, 42, 0.05));
 }
 
-.machines-empty-state {
+.machines-page .machines-empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,450 +97,486 @@
   text-align: center;
 }
 
-.machines-empty-state h2 {
+.machines-page .machines-empty-state h2 {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: #dfe2e5;
+  color: var(--mc-heading);
 }
 
-.machines-empty-state p {
+.machines-page .machines-empty-state p {
   margin: 8px 0 0;
-  font-size: 13px;
-  color: #858d95;
+  font-size: 14px;
+  color: var(--mc-muted);
 }
 
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 768px) {
-
-  .machines-heading {
-    align-items: flex-start;
-    gap: 18px;
-    flex-direction: column;
-  }
-
-  .machines-content {
-    padding: 20px;
-  }
-
-}
-
-/* =========================================
-   MACHINE TABLE HEADER
-========================================= */
-
-.machine-table-header {
+/* ---------- Table header, search and filters ---------- */
+.machines-page .machine-table-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 18px;
 }
 
-.machine-table-header h2 {
+.machines-page .machine-table-header h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: #dfe2e5;
+  color: var(--mc-heading);
 }
 
-.machine-table-header p {
-  margin: 6px 0 0;
-  font-size: 12px;
-  color: #858d95;
+.machines-page .machine-table-header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--mc-muted);
 }
 
+.machines-page .machine-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-/* =========================================
-   MACHINE TABLE WRAPPER
-========================================= */
+.machines-page .machine-search,
+.machines-page .machine-status-filter {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--mc-border-strong);
+  border-radius: 10px;
+  background: var(--mc-surface);
+  color: var(--mc-heading);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
 
-.machine-table-wrapper {
+.machines-page .machine-search {
+  width: 260px;
+}
+
+.machines-page .machine-status-filter {
+  min-width: 160px;
+  cursor: pointer;
+}
+
+.machines-page .machine-search::placeholder {
+  color: #94a3b8;
+}
+
+.machines-page .machine-search:focus,
+.machines-page .machine-status-filter:focus {
+  border-color: var(--mc-primary);
+  box-shadow: 0 0 0 3px var(--mc-primary-ring);
+}
+
+/* ---------- Table ---------- */
+.machines-page .machine-table-wrapper {
   width: 100%;
   overflow-x: auto;
+  border: 1px solid var(--mc-border);
+  border-radius: 10px;
 }
 
-
-/* =========================================
-   MACHINE TABLE
-========================================= */
-
-.machine-table {
+.machines-page .machine-table {
   width: 100%;
-  border-collapse: collapse;
   min-width: 850px;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.machine-table thead {
-  background: #181d21;
+.machines-page .machine-table thead {
+  background: var(--mc-surface-muted);
 }
 
-.machine-table th {
-  padding: 13px 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #858d95;
+.machines-page .machine-table th {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--mc-border);
+  color: var(--mc-muted);
   font-size: 11px;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-
-.machine-table td {
-  padding: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.035);
-  color: #aeb4ba;
-  font-size: 13px;
+  letter-spacing: 0.06em;
   white-space: nowrap;
 }
 
-.machine-table tbody tr {
-  transition: background 0.2s ease;
+.machines-page .machine-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: var(--mc-text);
+  font-size: 14px;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
-.machine-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.018);
+.machines-page .machine-table tbody tr {
+  transition: background-color 0.15s ease;
 }
 
-.machine-table tbody tr:last-child td {
+.machines-page .machine-table tbody tr:hover {
+  background: var(--mc-surface-muted);
+}
+
+.machines-page .machine-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-
-/* =========================================
-   MACHINE NAME
-========================================= */
-
-.machine-name {
-  color: #dfe2e5;
-  font-size: 13px;
+.machines-page .machine-name {
+  font-size: 14px;
   font-weight: 600;
+  color: var(--mc-heading);
 }
 
-
-/* =========================================
-   MACHINE STATUS
-========================================= */
-
-.machine-status {
+/* Status badges */
+.machines-page .machine-status {
   display: inline-flex;
   align-items: center;
-  padding: 5px 9px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 500;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: capitalize;
 }
 
-.machine-status.running {
-  background: rgba(111, 146, 123, 0.12);
-  color: #8eaa98;
+.machines-page .machine-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
-.machine-status.maintenance {
-  background: rgba(162, 139, 93, 0.12);
-  color: #b4a276;
+.machines-page .machine-status.running {
+  background: var(--mc-success-bg);
+  color: var(--mc-success);
 }
 
-.machine-status.stopped {
-  background: rgba(154, 98, 98, 0.12);
-  color: #b78686;
+.machines-page .machine-status.maintenance {
+  background: var(--mc-warning-bg);
+  color: var(--mc-warning);
 }
 
+.machines-page .machine-status.stopped {
+  background: var(--mc-danger-bg);
+  color: var(--mc-danger);
+}
 
-/* =========================================
-   MACHINE ACTIONS
-========================================= */
-
-.machine-actions {
+/* Row actions */
+.machines-page .machine-actions {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 }
 
-.machine-action-btn {
-  padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 6px;
-  background: #20252a;
-  color: #9ba1a8;
-  font-size: 11px;
+.machines-page .machine-action-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--mc-border-strong);
+  border-radius: 8px;
+  background: var(--mc-surface);
+  color: var(--mc-text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.machine-action-btn:hover {
-  border-color: rgba(111, 146, 123, 0.3);
-  background: #252b30;
-  color: #c4cbc7;
+.machines-page .machine-action-btn:hover {
+  border-color: var(--mc-primary);
+  background: var(--mc-primary-soft);
+  color: var(--mc-primary);
 }
 
-
-/* =========================================
-   RESPONSIVE TABLE
-========================================= */
-
-@media (max-width: 768px) {
-
-  .machines-content {
-    padding: 20px;
-  }
-
-  .machine-table-header {
-    margin-bottom: 16px;
-  }
-
+.machines-page .machine-action-btn:focus-visible {
+  outline: 2px solid var(--mc-primary);
+  outline-offset: 2px;
 }
 
-/* =========================================
-   ADD MACHINE MODAL
-========================================= */
+/* Loading, empty and error messages inside the table */
+.machines-page .machine-table-message {
+  padding: 40px 16px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--mc-muted);
+}
 
-.machine-modal-overlay {
+.machines-page .machine-table-message.error {
+  color: var(--mc-danger);
+  background: var(--mc-danger-bg);
+}
+
+/* ---------- Modals ---------- */
+.machines-page .machine-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 20px;
-
-  background: rgba(5, 8, 10, 0.72);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.5);
+  animation: machineFadeIn 0.15s ease-out;
 }
 
-
-/* =========================================
-   MODAL
-========================================= */
-
-.machine-modal {
+.machines-page .machine-modal {
   width: 100%;
-  max-width: 500px;
-
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-
-  background: #1b2024;
-
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.45);
+  max-width: 580px;
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--mc-border);
+  border-radius: 14px;
+  background: var(--mc-surface);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.3);
+  overflow: hidden;
+  animation: machineModalIn 0.18s ease-out;
 }
 
-
-/* =========================================
-   MODAL HEADER
-========================================= */
-
-.machine-modal-header {
+.machines-page .machine-modal-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-
-  padding: 22px 24px;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--mc-border);
 }
 
-.machine-modal-header h2 {
+.machines-page .machine-modal-header h2 {
   margin: 0;
-
   font-size: 18px;
   font-weight: 600;
-
-  color: #dfe2e5;
+  color: var(--mc-heading);
 }
 
-.machine-modal-header p {
-  margin: 6px 0 0;
-
-  font-size: 12px;
-
-  color: #858d95;
+.machines-page .machine-modal-header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--mc-muted);
 }
 
-
-/* =========================================
-   CLOSE BUTTON
-========================================= */
-
-.machine-modal-close {
-  width: 30px;
-  height: 30px;
-
+.machines-page .machine-modal-close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
   border: none;
-  border-radius: 6px;
-
+  border-radius: 8px;
   background: transparent;
-
-  color: #858d95;
-
+  color: var(--mc-muted);
   font-size: 22px;
   line-height: 1;
-
   cursor: pointer;
-
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.machine-modal-close:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #dfe2e5;
+.machines-page .machine-modal-close:hover {
+  background: var(--mc-surface-muted);
+  color: var(--mc-heading);
 }
 
-
-/* =========================================
-   MACHINE FORM
-========================================= */
-
-.machine-form {
+.machines-page .machine-form {
   display: flex;
   flex-direction: column;
-  gap: 17px;
-
+  gap: 18px;
   padding: 24px;
+  overflow-y: auto;
 }
 
-.machine-form-group {
+.machines-page .machine-form-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.machines-page .machine-form-group {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
+  min-width: 0;
 }
 
-.machine-form-group label {
-  font-size: 12px;
-  font-weight: 500;
-
-  color: #aeb4ba;
-}
-
-.machine-form-group input,
-.machine-form-group select {
-  width: 100%;
-  box-sizing: border-box;
-
-  padding: 10px 12px;
-
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 7px;
-
-  outline: none;
-
-  background: #161b1f;
-  color: #dfe2e5;
-
-  font-family: inherit;
+.machines-page .machine-form-group label {
   font-size: 13px;
-
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
+  font-weight: 600;
+  color: var(--mc-heading);
 }
 
-.machine-form-group input::placeholder {
-  color: #626a72;
+.machines-page .machine-form-group input,
+.machines-page .machine-form-group select,
+.machines-page .machine-form-group textarea {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--mc-border-strong);
+  border-radius: 10px;
+  background: var(--mc-surface);
+  color: var(--mc-heading);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.machine-form-group input:focus,
-.machine-form-group select:focus {
-  border-color: rgba(111, 146, 123, 0.45);
-  background: #181e22;
+.machines-page .machine-form-group textarea {
+  height: auto;
+  min-height: 84px;
+  padding: 10px 12px;
+  resize: vertical;
 }
 
-.machine-form-group select {
+.machines-page .machine-form-group select {
   cursor: pointer;
 }
 
+.machines-page .machine-form-group input::placeholder,
+.machines-page .machine-form-group textarea::placeholder {
+  color: #94a3b8;
+}
 
-/* =========================================
-   MODAL ACTIONS
-========================================= */
+.machines-page .machine-form-group input:focus,
+.machines-page .machine-form-group select:focus,
+.machines-page .machine-form-group textarea:focus {
+  border-color: var(--mc-primary);
+  box-shadow: 0 0 0 3px var(--mc-primary-ring);
+}
 
-.machine-modal-actions {
+.machines-page .machine-form-group input:disabled,
+.machines-page .machine-form-group select:disabled,
+.machines-page .machine-form-group textarea:disabled {
+  background: var(--mc-surface-muted);
+  color: var(--mc-muted);
+  cursor: not-allowed;
+}
+
+.machines-page .machine-form-error {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--mc-danger-bg);
+  color: var(--mc-danger);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.machines-page .machine-modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 9px;
-
-  padding: 18px 24px;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--mc-border);
+  background: var(--mc-surface-muted);
 }
 
-
-/* =========================================
-   CANCEL BUTTON
-========================================= */
-
-.machine-cancel-btn {
-  padding: 9px 15px;
-
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 7px;
-
-  background: #20252a;
-
-  color: #9ba1a8;
-
-  font-size: 12px;
-
+.machines-page .machine-cancel-btn,
+.machines-page .machine-save-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.machine-cancel-btn:hover {
-  background: #252b30;
-  color: #c4cbc7;
+.machines-page .machine-cancel-btn {
+  border: 1px solid var(--mc-border-strong);
+  background: var(--mc-surface);
+  color: var(--mc-text);
 }
 
-
-/* =========================================
-   SAVE BUTTON
-========================================= */
-
-.machine-save-btn {
-  padding: 9px 16px;
-
-  border: 1px solid rgba(111, 146, 123, 0.3);
-  border-radius: 7px;
-
-  background: rgba(111, 146, 123, 0.1);
-
-  color: #9aae9f;
-
-  font-size: 12px;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition: all 0.2s ease;
+.machines-page .machine-cancel-btn:hover {
+  background: var(--mc-surface-muted);
+  color: var(--mc-heading);
 }
 
-.machine-save-btn:hover {
-  background: rgba(111, 146, 123, 0.17);
-  border-color: rgba(111, 146, 123, 0.45);
+.machines-page .machine-save-btn {
+  border: 1px solid transparent;
+  background: var(--mc-primary);
+  color: #ffffff;
 }
 
+.machines-page .machine-save-btn:hover:not(:disabled) {
+  background: var(--mc-primary-hover);
+}
 
-/* =========================================
-   MODAL RESPONSIVE
-========================================= */
+.machines-page .machine-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-@media (max-width: 600px) {
+.machines-page .machine-cancel-btn:focus-visible,
+.machines-page .machine-save-btn:focus-visible,
+.machines-page .machine-modal-close:focus-visible {
+  outline: 2px solid var(--mc-primary);
+  outline-offset: 2px;
+}
 
-  .machine-modal {
-    max-width: 100%;
+@keyframes machineFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes machineModalIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .machines-page .machines-heading {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .machine-modal-header,
-  .machine-form,
-  .machine-modal-actions {
+  .machines-page .machines-content {
+    padding: 16px;
+  }
+
+  .machines-page .machine-search {
+    width: 100%;
+  }
+
+  .machines-page .machine-filters {
+    width: 100%;
+  }
+
+  .machines-page .machine-filters > * {
+    flex: 1 1 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .machines-page .machine-modal {
+    max-height: 100vh;
+    border-radius: 14px;
+  }
+
+  .machines-page .machine-modal-header,
+  .machines-page .machine-form,
+  .machines-page .machine-modal-actions {
     padding-left: 18px;
     padding-right: 18px;
   }
 
+  .machines-page .machine-form-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .machines-page .machine-modal-actions .machine-cancel-btn,
+  .machines-page .machine-modal-actions .machine-save-btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .machines-page .machine-modal-overlay,
+  .machines-page .machine-modal {
+    animation: none;
+  }
 }
