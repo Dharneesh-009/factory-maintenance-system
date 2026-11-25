@@ -256,7 +256,8 @@ public class SecurityConfig {
                 List.of(
                         "http://localhost:5173",
                         "http://localhost:5174",
-                        "http://localhost:5175"
+                        "http://localhost:5175",
+                        "https://factory-maintenance-system-xcc600wzo.vercel.app"
                 )
         );
 
